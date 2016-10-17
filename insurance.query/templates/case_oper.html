@@ -1,0 +1,364 @@
+﻿<div class="container-fluid b-space" style="padding-top: 15px;">
+    <div class="btn-group" style="margin-bottom: 15px;">
+        <div class="btn-group">
+            <button type="button" class="btn btn-info" ng-show="user.authority_level == 1" ng-click="_case.substract()">
+                <i class="fa fa-calendar-check-o"></i>案件核减
+            </button>
+            <button type="button" class="btn btn-info" ng-click="_case.modify()">
+                <i class="fa fa-calendar-check-o"></i>修改
+            </button>
+            <button type="button" class="btn btn-info" ng-click="_case.save(0,true,1)">
+                <i class="fa fa-calendar-check-o"></i>提交
+            </button>
+            <button type="button" class="btn btn-info" ng-hide="user.authority_level == 1" ng-click="_case.untread()">
+                <i class="fa fa-calendar-check-o"></i>回退
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-2">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon">身份证</span>
+                <input type="text" class="form-control" ng-model="_case.search.condition.id_card" />
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="input-group">
+                <span class="input-group-addon">所有案件</span>
+                <div class="checkbox" style="margin: 0;padding: 6px 0 0 15px;height: 34px;border: 1px solid #ccc;border-radius: 5px;width: 43px;">
+                    <label>
+                        <input type="checkbox" value="1" ng-model="_case.search.condition.all"
+                               ng-checked="_case.search.condition.is_all" ng-click="_case.search.condition.is_all = !_case.search.condition.is_all"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-primary" ng-click="_case.search.from_server()">
+                    搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline no-wrap"
+                                        role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th rowspan="1" colspan="1">
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    序号
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    姓名
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    身份证号
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    出院日期
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    系统赔付金额
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    核减金额
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    核减原因
+                                                </th>
+                                                <th rowspan="1" colspan="1" ng-hide="user.authority_level == 1">
+                                                    初审人
+                                                </th>
+                                                <th rowspan="1" colspan="1" ng-hide="user.authority_level == 1">
+                                                    初审日期
+                                                </th>
+                                                <th rowspan="1" colspan="1" ng-hide="[1,9].exist(user.authority_level)">
+                                                    复审人
+                                                </th>
+                                                <th rowspan="1" colspan="1" ng-hide="[1,9].exist(user.authority_level)">
+                                                    复审日期
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    审核状态
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="_this in _case.search.result" ng-click="_case.search.select(_this)">
+                                                <td>
+                                                    <input type="radio" name="group_search" class="form-control select" ng-checked="_this.checked || _case.search.selected.ID == _this.ID"
+                                                        ng-model="_this.checked" />
+                                                </td>
+                                                <td>
+                                                    {{$index + 1}}
+                                                </td>
+                                                <td>
+                                                    {{_this.PNAME}}
+                                                </td>
+                                                <td>
+                                                    {{_this.IDCARD}}
+                                                </td>
+                                                <td>
+                                                    {{_this.LEAVEDATE}}
+                                                </td>
+                                                <td>
+                                                    {{_this.PAYAMOUNT}}
+                                                </td>
+                                                <td>
+                                                    {{_this.SUBTRACTAMOUNT}}
+                                                </td>
+                                                <td>
+                                                    {{_this.SUBTRACTREASON}}
+                                                </td>
+                                                <td ng-hide="user.authority_level == 1">
+                                                    {{_this.TRIALER}}
+                                                </td>
+                                                <td ng-hide="user.authority_level == 1">
+                                                    {{_this.TRIALDATE}}
+                                                </td>
+                                                <td ng-hide="[1,9].exist(user.authority_level)">
+                                                    {{_this.REVIEWER}}
+                                                </td>
+                                                <td ng-hide="[1,9].exist(user.authority_level)">
+                                                    {{_this.REVIEWDATE}}
+                                                </td>
+                                                <td>
+                                                    {{_case.state_name(_this.ADState)}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="dataTables_length">
+                                        <label>
+                                            每页显示
+                                            <select ng-change="_case.search.from_server()" ng-model="page.size" class="form-control input-sm"
+                                                style="height: 25px;">
+                                                <option value="15" ng-selected="page.size == 15">15</option>
+                                                <option value="25" ng-selected="page.size == 25">25</option>
+                                                <option value="50" ng-selected="page.size == 50">50</option>
+                                                <option value="100" ng-selected="page.size == 100">100</option>
+                                            </select>条，共{{page.all_items.last()}}页{{page.record_count}}条记录
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination" style="margin: 0;">
+                                            <li ng-click="page.turn_to(0)" ng-disabled="page.filtered.length == 1" class="paginate_button">
+                                                <a href="javascript:void(0)">第一页</a> </li>
+                                            <li ng-click="page.turn_to(page.index - 1)" ng-disabled="page.filtered.length == 1"
+                                                class="paginate_button previous"><a href="javascript:void(0)">&laquo;</a> </li>
+                                            <li ng-repeat="item in page.filtered track by $index" ng-click="page.turn_to(item - 1)"
+                                                ng-class="{active: (page.index + 1) == item}" class="paginate_button"><a href="javascript:void(0)">
+                                                    {{item}}</a> </li>
+                                            <li ng-click="page.turn_to(page.index + 1)" ng-disabled="page.filtered.length == 1"
+                                                class="paginate_button next"><a href="javascript:void(0)">&raquo;</a> </li>
+                                            <li ng-click="page.turn_to(page.all_items.length - 1)" ng-disabled="page.filtered.length == 1"
+                                                class="paginate_button"><a href="javascript:void(0)">最后一页</a> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="modify_case.html">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            修改案件信息</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">姓名</span>
+                    <input type="text" class="form-control" disabled ng-model="selected.PNAME" />
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">赔付金额</span>
+                    <input type="text" class="form-control" disabled ng-model="selected.PAYAMOUNT" />
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">核减金额</span>
+                    <input type="text" class="form-control" ng-model="selected.SUBTRACTAMOUNT"/>
+                </div>
+            </div>
+            <div class="col-xs-7">
+                <div class="input-group">
+                    <span class="input-group-addon">身份证号</span>
+                    <input type="text" class="form-control" disabled ng-model="selected.IDCARD" />
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <span class="input-group-addon">出院日期</span>
+                    <input type="text" class="form-control" disabled ng-model="selected.LEAVEDATE" />
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="input-group">
+                <span class="input-group-addon">
+                        <span>核减</span><br/><br/>
+                        <span>原因</span>
+                    </span>
+                <textarea class="form-control" rows="3" ng-model="selected.SUBTRACTREASON"></textarea>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="save()">
+            仅保存
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="save(true)">
+            保存并提交
+        </button>
+    </div>
+</script>
+<script type="text/ng-template" id="substract.html">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            案件核减</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">身份证</span>
+                    <input type="text" class="form-control" ng-model="_case.search.condition.id_card" />
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <p class="input-group">
+                    <span class="input-group-addon">出院日期</span>
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="_case.search.condition.leave_date" is-open="popup.opened" datepicker-options="dateOptions" close-text="关闭" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open()">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-xs-2">
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-primary" ng-click="_case.search.from_server()">
+                        搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: 8px auto;">
+            <div class="col-sm-12 text-center">
+                <span ng-hide="!_case.search.result || _case.search.result.length > 0">没有找到相关记录</span>
+                <table class="table table-hover no-wrap" ng-show="_case.search.result && _case.search.result.length > 0">
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                身份证号码
+                            </th>
+                            <th>
+                                出院日期
+                            </th>
+                            <th>
+                                赔付金额
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="_this in _case.search.result" ng-click="_case.search.select(_this)">
+                            <td>
+                                <input type="radio" name="group_modal" class="form-control select" ng-checked="_this.checked || _case.search.selected.ID == _this.ID"
+                                    ng-model="_this.checked" />
+                            </td>
+                            <td>
+                                {{_this.PNAME}}
+                            </td>
+                            <td>
+                                {{_this.IDCARD}}
+                            </td>
+                            <td>
+                                {{_this.LEAVEDATE}}
+                            </td>
+                            <td>
+                                {{_this.PAYAMOUNT}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">姓名</span>
+                    <input type="text" class="form-control" disabled ng-model="_case.search.selected.PNAME" />
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">赔付金额</span>
+                    <input type="text" class="form-control" disabled ng-model="_case.search.selected.PAYAMOUNT" />
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">核减金额</span>
+                    <input type="text" class="form-control" ng-model="_case.search.selected.SUBTRACTAMOUNT" />
+                </div>
+            </div>
+            <div class="col-xs-7">
+                <div class="input-group">
+                    <span class="input-group-addon">身份证号</span>
+                    <input type="text" class="form-control" disabled ng-model="_case.search.selected.IDCARD" />
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <span class="input-group-addon">出院日期</span>
+                    <input type="text" class="form-control" disabled ng-model="_case.search.selected.LEAVEDATE" ng-wdatepicker />
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon"><span>核减</span><br />
+                        <br />
+                        <span>原因</span> </span>
+                    <textarea class="form-control" rows="3" ng-model="_case.search.selected.SUBTRACTREASON"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="_case.save()">
+            保存
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="_case.save(true)">
+            保存并提交
+        </button>
+    </div>
+</script>

@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Query_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="Query_ModelStoreContainer">
+          <EntitySet Name="CASEOPER" EntityType="Query_Model.Store.CASEOPER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LGN" EntityType="Query_Model.Store.LGN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TB0001" EntityType="Query_Model.Store.TB0001" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TB0011" EntityType="Query_Model.Store.TB0011" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TB0012" EntityType="Query_Model.Store.TB0012" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TB0014" EntityType="Query_Model.Store.TB0014" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TB0016" EntityType="Query_Model.Store.TB0016" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="CASEOPER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PNAME" Type="varchar" MaxLength="10" />
+          <Property Name="IDCARD" Type="varchar" MaxLength="20" />
+          <Property Name="LEAVEDATE" Type="datetime" />
+          <Property Name="PAYAMOUNT" Type="numeric" Scale="2" />
+          <Property Name="SUBTRACTAMOUNT" Type="numeric" Scale="2" />
+          <Property Name="SUBTRACTREASON" Type="varchar" MaxLength="100" />
+          <Property Name="TRIALER" Type="varchar" MaxLength="10" />
+          <Property Name="TRIALDATE" Type="datetime" />
+          <Property Name="REVIEWER" Type="varchar" MaxLength="10" />
+          <Property Name="REVIEWDATE" Type="datetime" />
+          <Property Name="AUDITSTATUS" Type="int" />
+          <Property Name="ADState" Type="int" />
+        </EntityType>
+        <EntityType Name="LGN">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="authority_level" Type="int" Nullable="false" />
+          <Property Name="last_login_time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TB0001">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AAC001" Type="varchar" MaxLength="10" />
+          <Property Name="AAC002" Type="varchar" MaxLength="20" />
+          <Property Name="AAC003" Type="varchar" MaxLength="20" />
+          <Property Name="AAC004" Type="varchar" MaxLength="20" />
+          <Property Name="AAC006" Type="datetime" />
+          <Property Name="AAE008" Type="varchar" MaxLength="2" />
+          <Property Name="AKC021" Type="varchar" MaxLength="2" />
+          <Property Name="AAB034" Type="varchar" MaxLength="6" />
+          <Property Name="ExtractDate" Type="datetime" />
+          <Property Name="AAC041" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="TB0011">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="akb020" Type="varchar" MaxLength="20" />
+          <Property Name="akc190" Type="varchar" MaxLength="20" />
+          <Property Name="AKC200" Type="varchar" MaxLength="2" />
+          <Property Name="aac001" Type="varchar" MaxLength="10" />
+          <Property Name="aka130" Type="varchar" MaxLength="2" />
+          <Property Name="aae040" Type="datetime" />
+          <Property Name="akc268" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="akc269" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="akc264" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="akc261" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="akc260" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="akc283" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="akc259" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="bkc281" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="bkc282" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="bkc283" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="ckc281" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="ckc282" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="ckc283" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="bkc284" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="bkc285" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="ckc285" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="bkc286" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AAC002" Type="varchar" MaxLength="18" />
+          <Property Name="AAB034" Type="varchar" MaxLength="6" />
+          <Property Name="ExtractDate" Type="datetime" />
+          <Property Name="AAC003" Type="varchar" MaxLength="20" />
+          <Property Name="BKC287" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AKC337" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TB0012">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AKB020" Type="varchar" MaxLength="20" />
+          <Property Name="AKC190" Type="varchar" MaxLength="20" />
+          <Property Name="AAC001" Type="varchar" MaxLength="14" />
+          <Property Name="AKA130" Type="varchar" MaxLength="2" />
+          <Property Name="AKA101" Type="varchar" MaxLength="2" />
+          <Property Name="AKC192" Type="datetime" />
+          <Property Name="AKC193" Type="varchar" MaxLength="20" />
+          <Property Name="AKC231" Type="varchar" MaxLength="100" />
+          <Property Name="AKC194" Type="datetime" />
+          <Property Name="AKC195" Type="varchar" MaxLength="3" />
+          <Property Name="AKC196" Type="varchar" MaxLength="20" />
+          <Property Name="AKC232" Type="varchar" MaxLength="100" />
+          <Property Name="AKC317" Type="varchar" MaxLength="2" />
+          <Property Name="AKA151" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AKC256" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AAE100" Type="varchar" MaxLength="2" />
+          <Property Name="AKC323" Type="varchar" MaxLength="100" />
+          <Property Name="AKC324" Type="varchar" MaxLength="10" />
+          <Property Name="AKC202" Type="varchar" MaxLength="20" />
+          <Property Name="AKC400" Type="varchar" MaxLength="20" />
+          <Property Name="AKC200" Type="varchar" MaxLength="2" />
+          <Property Name="AKC198" Type="varchar" MaxLength="20" />
+          <Property Name="AKC199" Type="varchar" MaxLength="20" />
+          <Property Name="AKC350" Type="varchar" MaxLength="20" />
+          <Property Name="AKC351" Type="varchar" MaxLength="20" />
+          <Property Name="AKC352" Type="varchar" MaxLength="20" />
+          <Property Name="AKC353" Type="varchar" MaxLength="20" />
+          <Property Name="AKC354" Type="varchar" MaxLength="20" />
+          <Property Name="AKC355" Type="varchar" MaxLength="20" />
+          <Property Name="AKC356" Type="varchar" MaxLength="20" />
+          <Property Name="AKC357" Type="varchar" MaxLength="20" />
+          <Property Name="AKC358" Type="varchar" MaxLength="20" />
+          <Property Name="AKC359" Type="varchar" MaxLength="20" />
+          <Property Name="AKC360" Type="varchar" MaxLength="20" />
+          <Property Name="AKC361" Type="varchar" MaxLength="20" />
+          <Property Name="AKC362" Type="varchar" MaxLength="20" />
+          <Property Name="AKC363" Type="varchar" MaxLength="20" />
+          <Property Name="AKC364" Type="varchar" MaxLength="20" />
+          <Property Name="AKC365" Type="varchar" MaxLength="20" />
+          <Property Name="AKC366" Type="varchar" MaxLength="20" />
+          <Property Name="AKC367" Type="varchar" MaxLength="20" />
+          <Property Name="AKC368" Type="varchar" MaxLength="20" />
+          <Property Name="AKC369" Type="varchar" MaxLength="20" />
+          <Property Name="ExtractDate" Type="datetime" />
+          <Property Name="AAC002" Type="varchar" MaxLength="20" />
+          <Property Name="AAC003" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TB0014">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AKB020" Type="varchar" MaxLength="14" />
+          <Property Name="AAE430" Type="varchar" MaxLength="18" />
+          <Property Name="AKB148" Type="varchar" MaxLength="3" />
+          <Property Name="AKA130" Type="varchar" MaxLength="3" />
+          <Property Name="AKB082" Type="varchar" MaxLength="8" />
+          <Property Name="AAE431" Type="varchar" MaxLength="3" />
+          <Property Name="AKB140" Type="varchar" MaxLength="12" />
+          <Property Name="AKB141" Type="varchar" MaxLength="12" />
+          <Property Name="AKB142" Type="varchar" MaxLength="12" />
+          <Property Name="AKB143" Type="varchar" MaxLength="18" />
+          <Property Name="AKB144" Type="varchar" MaxLength="7" />
+          <Property Name="AKB145" Type="varchar" MaxLength="12" />
+          <Property Name="AKB146" Type="varchar" MaxLength="12" />
+          <Property Name="AKB081" Type="varchar" MaxLength="12" />
+          <Property Name="AKB147" Type="varchar" MaxLength="50" />
+          <Property Name="AAE074" Type="varchar" MaxLength="18" />
+          <Property Name="AAE011" Type="varchar" MaxLength="20" />
+          <Property Name="AAE036" Type="datetime" />
+          <Property Name="AAE030" Type="datetime" />
+          <Property Name="AAE031" Type="datetime" />
+          <Property Name="AKA129" Type="varchar" MaxLength="10" />
+          <Property Name="AAE025" Type="datetime" />
+          <Property Name="AAE026" Type="varchar" MaxLength="20" />
+          <Property Name="AAE092" Type="datetime" />
+          <Property Name="AAE093" Type="varchar" MaxLength="20" />
+          <Property Name="AAE094" Type="datetime" />
+          <Property Name="AAE095" Type="varchar" MaxLength="20" />
+          <Property Name="AAE032" Type="varchar" MaxLength="20" />
+          <Property Name="aab324" Type="varchar" MaxLength="8" />
+          <Property Name="AAE117" Type="varchar" MaxLength="3" />
+          <Property Name="ExtractDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TB0016">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AAE430" Type="varchar" MaxLength="18" />
+          <Property Name="AKB144" Type="numeric" Scale="2" />
+          <Property Name="AKB147" Type="varchar" MaxLength="50" />
+          <Property Name="AAE074" Type="varchar" MaxLength="18" />
+          <Property Name="AAE025" Type="datetime" />
+          <Property Name="AAE026" Type="varchar" MaxLength="20" />
+          <Property Name="AAE092" Type="datetime" />
+          <Property Name="AAE093" Type="varchar" MaxLength="20" />
+          <Property Name="AAE094" Type="datetime" />
+          <Property Name="AAE095" Type="varchar" MaxLength="20" />
+          <Property Name="AAE032" Type="varchar" MaxLength="20" />
+          <Property Name="AAE117" Type="int" />
+          <Property Name="SendDate" Type="datetime" />
+          <Property Name="SendParams" Type="varchar" MaxLength="1" />
+          <Property Name="SendStatus" Type="int" />
+          <Property Name="ADState" Type="int" />
+          <Property Name="ErrMsg" Type="varchar" MaxLength="100" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Query_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="query_entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CASEOPER" EntityType="Query_Model.CASEOPER" />
+          <EntitySet Name="LGN" EntityType="Query_Model.LGN" />
+          <EntitySet Name="TB0011" EntityType="Query_Model.TB0011" />
+          <EntitySet Name="TB0012" EntityType="Query_Model.TB0012" />
+          <EntitySet Name="TB0014" EntityType="Query_Model.TB0014" />
+          <EntitySet Name="TB0016" EntityType="Query_Model.TB0016" />
+          <EntitySet Name="TB0001" EntityType="Query_Model.TB0001" />
+        </EntityContainer>
+        <EntityType Name="CASEOPER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PNAME" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IDCARD" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LEAVEDATE" />
+          <Property Type="Decimal" Name="PAYAMOUNT" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="SUBTRACTAMOUNT" Precision="18" Scale="2" />
+          <Property Type="String" Name="SUBTRACTREASON" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TRIALER" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="TRIALDATE" />
+          <Property Type="String" Name="REVIEWER" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="REVIEWDATE" />
+          <Property Type="Int32" Name="AUDITSTATUS" />
+          <Property Type="Int32" Name="ADState" />
+        </EntityType>
+        <EntityType Name="LGN">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Type="Int32" Name="uid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="user_name" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="authority_level" Nullable="false" />
+          <Property Type="DateTime" Name="last_login_time" />
+        </EntityType>
+        <EntityType Name="TB0011">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="akb020" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="akc190" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC200" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="aac001" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="aka130" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="aae040" />
+          <Property Type="Decimal" Name="akc268" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="akc269" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="akc264" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="akc261" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="akc260" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="akc283" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="akc259" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="bkc281" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="bkc282" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="bkc283" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="ckc281" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="ckc282" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="ckc283" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="bkc284" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="bkc285" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="ckc285" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="bkc286" Precision="12" Scale="2" />
+          <Property Type="String" Name="AAC002" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAB034" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ExtractDate" />
+          <Property Type="String" Name="AAC003" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="BKC287" Precision="12" Scale="2" />
+          <Property Type="String" Name="AKC337" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB0012">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AKB020" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC190" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAC001" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKA130" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKA101" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AKC192" />
+          <Property Type="String" Name="AKC193" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC231" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AKC194" />
+          <Property Type="String" Name="AKC195" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC196" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC232" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC317" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="AKA151" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="AKC256" Precision="12" Scale="2" />
+          <Property Type="String" Name="AAE100" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC323" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC324" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC202" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC400" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC200" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC198" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC199" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC350" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC351" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC352" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC353" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC354" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC355" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC356" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC357" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC358" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC359" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC360" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC361" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC362" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC363" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC364" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC365" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC366" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC367" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC368" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC369" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ExtractDate" />
+          <Property Type="String" Name="AAC002" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAC003" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB0014">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AKB020" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE430" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB148" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKA130" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB082" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE431" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB140" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB141" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB142" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB143" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB144" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB145" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB146" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB081" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKB147" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE074" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE011" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE036" />
+          <Property Type="DateTime" Name="AAE030" />
+          <Property Type="DateTime" Name="AAE031" />
+          <Property Type="String" Name="AKA129" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE025" />
+          <Property Type="String" Name="AAE026" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE092" />
+          <Property Type="String" Name="AAE093" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE094" />
+          <Property Type="String" Name="AAE095" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE032" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="aab324" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE117" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ExtractDate" />
+        </EntityType>
+        <EntityType Name="TB0016">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AAE430" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="AKB144" Precision="18" Scale="2" />
+          <Property Type="String" Name="AKB147" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE074" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE025" />
+          <Property Type="String" Name="AAE026" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE092" />
+          <Property Type="String" Name="AAE093" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAE094" />
+          <Property Type="String" Name="AAE095" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAE032" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="AAE117" />
+          <Property Type="DateTime" Name="SendDate" />
+          <Property Type="String" Name="SendParams" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="SendStatus" />
+          <Property Type="Int32" Name="ADState" />
+          <Property Type="String" Name="ErrMsg" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB0001">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AAC001" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAC002" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAC003" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAC004" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AAC006" />
+          <Property Type="String" Name="AAE008" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AKC021" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AAB034" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ExtractDate" />
+          <Property Type="String" Name="AAC041" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Query_ModelStoreContainer" CdmEntityContainer="query_entities">
+          <EntitySetMapping Name="CASEOPER">
+            <EntityTypeMapping TypeName="Query_Model.CASEOPER">
+              <MappingFragment StoreEntitySet="CASEOPER">
+                <ScalarProperty Name="ADState" ColumnName="ADState" />
+                <ScalarProperty Name="AUDITSTATUS" ColumnName="AUDITSTATUS" />
+                <ScalarProperty Name="REVIEWDATE" ColumnName="REVIEWDATE" />
+                <ScalarProperty Name="REVIEWER" ColumnName="REVIEWER" />
+                <ScalarProperty Name="TRIALDATE" ColumnName="TRIALDATE" />
+                <ScalarProperty Name="TRIALER" ColumnName="TRIALER" />
+                <ScalarProperty Name="SUBTRACTREASON" ColumnName="SUBTRACTREASON" />
+                <ScalarProperty Name="SUBTRACTAMOUNT" ColumnName="SUBTRACTAMOUNT" />
+                <ScalarProperty Name="PAYAMOUNT" ColumnName="PAYAMOUNT" />
+                <ScalarProperty Name="LEAVEDATE" ColumnName="LEAVEDATE" />
+                <ScalarProperty Name="IDCARD" ColumnName="IDCARD" />
+                <ScalarProperty Name="PNAME" ColumnName="PNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LGN">
+            <EntityTypeMapping TypeName="Query_Model.LGN">
+              <MappingFragment StoreEntitySet="LGN">
+                <ScalarProperty Name="last_login_time" ColumnName="last_login_time" />
+                <ScalarProperty Name="authority_level" ColumnName="authority_level" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB0011">
+            <EntityTypeMapping TypeName="Query_Model.TB0011">
+              <MappingFragment StoreEntitySet="TB0011">
+                <ScalarProperty Name="AKC337" ColumnName="AKC337" />
+                <ScalarProperty Name="BKC287" ColumnName="BKC287" />
+                <ScalarProperty Name="AAC003" ColumnName="AAC003" />
+                <ScalarProperty Name="ExtractDate" ColumnName="ExtractDate" />
+                <ScalarProperty Name="AAB034" ColumnName="AAB034" />
+                <ScalarProperty Name="AAC002" ColumnName="AAC002" />
+                <ScalarProperty Name="bkc286" ColumnName="bkc286" />
+                <ScalarProperty Name="ckc285" ColumnName="ckc285" />
+                <ScalarProperty Name="bkc285" ColumnName="bkc285" />
+                <ScalarProperty Name="bkc284" ColumnName="bkc284" />
+                <ScalarProperty Name="ckc283" ColumnName="ckc283" />
+                <ScalarProperty Name="ckc282" ColumnName="ckc282" />
+                <ScalarProperty Name="ckc281" ColumnName="ckc281" />
+                <ScalarProperty Name="bkc283" ColumnName="bkc283" />
+                <ScalarProperty Name="bkc282" ColumnName="bkc282" />
+                <ScalarProperty Name="bkc281" ColumnName="bkc281" />
+                <ScalarProperty Name="akc259" ColumnName="akc259" />
+                <ScalarProperty Name="akc283" ColumnName="akc283" />
+                <ScalarProperty Name="akc260" ColumnName="akc260" />
+                <ScalarProperty Name="akc261" ColumnName="akc261" />
+                <ScalarProperty Name="akc264" ColumnName="akc264" />
+                <ScalarProperty Name="akc269" ColumnName="akc269" />
+                <ScalarProperty Name="akc268" ColumnName="akc268" />
+                <ScalarProperty Name="aae040" ColumnName="aae040" />
+                <ScalarProperty Name="aka130" ColumnName="aka130" />
+                <ScalarProperty Name="aac001" ColumnName="aac001" />
+                <ScalarProperty Name="AKC200" ColumnName="AKC200" />
+                <ScalarProperty Name="akc190" ColumnName="akc190" />
+                <ScalarProperty Name="akb020" ColumnName="akb020" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB0012">
+            <EntityTypeMapping TypeName="Query_Model.TB0012">
+              <MappingFragment StoreEntitySet="TB0012">
+                <ScalarProperty Name="AAC003" ColumnName="AAC003" />
+                <ScalarProperty Name="AAC002" ColumnName="AAC002" />
+                <ScalarProperty Name="ExtractDate" ColumnName="ExtractDate" />
+                <ScalarProperty Name="AKC369" ColumnName="AKC369" />
+                <ScalarProperty Name="AKC368" ColumnName="AKC368" />
+                <ScalarProperty Name="AKC367" ColumnName="AKC367" />
+                <ScalarProperty Name="AKC366" ColumnName="AKC366" />
+                <ScalarProperty Name="AKC365" ColumnName="AKC365" />
+                <ScalarProperty Name="AKC364" ColumnName="AKC364" />
+                <ScalarProperty Name="AKC363" ColumnName="AKC363" />
+                <ScalarProperty Name="AKC362" ColumnName="AKC362" />
+                <ScalarProperty Name="AKC361" ColumnName="AKC361" />
+                <ScalarProperty Name="AKC360" ColumnName="AKC360" />
+                <ScalarProperty Name="AKC359" ColumnName="AKC359" />
+                <ScalarProperty Name="AKC358" ColumnName="AKC358" />
+                <ScalarProperty Name="AKC357" ColumnName="AKC357" />
+                <ScalarProperty Name="AKC356" ColumnName="AKC356" />
+                <ScalarProperty Name="AKC355" ColumnName="AKC355" />
+                <ScalarProperty Name="AKC354" ColumnName="AKC354" />
+                <ScalarProperty Name="AKC353" ColumnName="AKC353" />
+                <ScalarProperty Name="AKC352" ColumnName="AKC352" />
+                <ScalarProperty Name="AKC351" ColumnName="AKC351" />
+                <ScalarProperty Name="AKC350" ColumnName="AKC350" />
+                <ScalarProperty Name="AKC199" ColumnName="AKC199" />
+                <ScalarProperty Name="AKC198" ColumnName="AKC198" />
+                <ScalarProperty Name="AKC200" ColumnName="AKC200" />
+                <ScalarProperty Name="AKC400" ColumnName="AKC400" />
+                <ScalarProperty Name="AKC202" ColumnName="AKC202" />
+                <ScalarProperty Name="AKC324" ColumnName="AKC324" />
+                <ScalarProperty Name="AKC323" ColumnName="AKC323" />
+                <ScalarProperty Name="AAE100" ColumnName="AAE100" />
+                <ScalarProperty Name="AKC256" ColumnName="AKC256" />
+                <ScalarProperty Name="AKA151" ColumnName="AKA151" />
+                <ScalarProperty Name="AKC317" ColumnName="AKC317" />
+                <ScalarProperty Name="AKC232" ColumnName="AKC232" />
+                <ScalarProperty Name="AKC196" ColumnName="AKC196" />
+                <ScalarProperty Name="AKC195" ColumnName="AKC195" />
+                <ScalarProperty Name="AKC194" ColumnName="AKC194" />
+                <ScalarProperty Name="AKC231" ColumnName="AKC231" />
+                <ScalarProperty Name="AKC193" ColumnName="AKC193" />
+                <ScalarProperty Name="AKC192" ColumnName="AKC192" />
+                <ScalarProperty Name="AKA101" ColumnName="AKA101" />
+                <ScalarProperty Name="AKA130" ColumnName="AKA130" />
+                <ScalarProperty Name="AAC001" ColumnName="AAC001" />
+                <ScalarProperty Name="AKC190" ColumnName="AKC190" />
+                <ScalarProperty Name="AKB020" ColumnName="AKB020" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB0014">
+            <EntityTypeMapping TypeName="Query_Model.TB0014">
+              <MappingFragment StoreEntitySet="TB0014">
+                <ScalarProperty Name="ExtractDate" ColumnName="ExtractDate" />
+                <ScalarProperty Name="AAE117" ColumnName="AAE117" />
+                <ScalarProperty Name="aab324" ColumnName="aab324" />
+                <ScalarProperty Name="AAE032" ColumnName="AAE032" />
+                <ScalarProperty Name="AAE095" ColumnName="AAE095" />
+                <ScalarProperty Name="AAE094" ColumnName="AAE094" />
+                <ScalarProperty Name="AAE093" ColumnName="AAE093" />
+                <ScalarProperty Name="AAE092" ColumnName="AAE092" />
+                <ScalarProperty Name="AAE026" ColumnName="AAE026" />
+                <ScalarProperty Name="AAE025" ColumnName="AAE025" />
+                <ScalarProperty Name="AKA129" ColumnName="AKA129" />
+                <ScalarProperty Name="AAE031" ColumnName="AAE031" />
+                <ScalarProperty Name="AAE030" ColumnName="AAE030" />
+                <ScalarProperty Name="AAE036" ColumnName="AAE036" />
+                <ScalarProperty Name="AAE011" ColumnName="AAE011" />
+                <ScalarProperty Name="AAE074" ColumnName="AAE074" />
+                <ScalarProperty Name="AKB147" ColumnName="AKB147" />
+                <ScalarProperty Name="AKB081" ColumnName="AKB081" />
+                <ScalarProperty Name="AKB146" ColumnName="AKB146" />
+                <ScalarProperty Name="AKB145" ColumnName="AKB145" />
+                <ScalarProperty Name="AKB144" ColumnName="AKB144" />
+                <ScalarProperty Name="AKB143" ColumnName="AKB143" />
+                <ScalarProperty Name="AKB142" ColumnName="AKB142" />
+                <ScalarProperty Name="AKB141" ColumnName="AKB141" />
+                <ScalarProperty Name="AKB140" ColumnName="AKB140" />
+                <ScalarProperty Name="AAE431" ColumnName="AAE431" />
+                <ScalarProperty Name="AKB082" ColumnName="AKB082" />
+                <ScalarProperty Name="AKA130" ColumnName="AKA130" />
+                <ScalarProperty Name="AKB148" ColumnName="AKB148" />
+                <ScalarProperty Name="AAE430" ColumnName="AAE430" />
+                <ScalarProperty Name="AKB020" ColumnName="AKB020" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB0016">
+            <EntityTypeMapping TypeName="Query_Model.TB0016">
+              <MappingFragment StoreEntitySet="TB0016">
+                <ScalarProperty Name="ErrMsg" ColumnName="ErrMsg" />
+                <ScalarProperty Name="ADState" ColumnName="ADState" />
+                <ScalarProperty Name="SendStatus" ColumnName="SendStatus" />
+                <ScalarProperty Name="SendParams" ColumnName="SendParams" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="AAE117" ColumnName="AAE117" />
+                <ScalarProperty Name="AAE032" ColumnName="AAE032" />
+                <ScalarProperty Name="AAE095" ColumnName="AAE095" />
+                <ScalarProperty Name="AAE094" ColumnName="AAE094" />
+                <ScalarProperty Name="AAE093" ColumnName="AAE093" />
+                <ScalarProperty Name="AAE092" ColumnName="AAE092" />
+                <ScalarProperty Name="AAE026" ColumnName="AAE026" />
+                <ScalarProperty Name="AAE025" ColumnName="AAE025" />
+                <ScalarProperty Name="AAE074" ColumnName="AAE074" />
+                <ScalarProperty Name="AKB147" ColumnName="AKB147" />
+                <ScalarProperty Name="AKB144" ColumnName="AKB144" />
+                <ScalarProperty Name="AAE430" ColumnName="AAE430" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB0001">
+            <EntityTypeMapping TypeName="Query_Model.TB0001">
+              <MappingFragment StoreEntitySet="TB0001">
+                <ScalarProperty Name="AAC041" ColumnName="AAC041" />
+                <ScalarProperty Name="ExtractDate" ColumnName="ExtractDate" />
+                <ScalarProperty Name="AAB034" ColumnName="AAB034" />
+                <ScalarProperty Name="AKC021" ColumnName="AKC021" />
+                <ScalarProperty Name="AAE008" ColumnName="AAE008" />
+                <ScalarProperty Name="AAC006" ColumnName="AAC006" />
+                <ScalarProperty Name="AAC004" ColumnName="AAC004" />
+                <ScalarProperty Name="AAC003" ColumnName="AAC003" />
+                <ScalarProperty Name="AAC002" ColumnName="AAC002" />
+                <ScalarProperty Name="AAC001" ColumnName="AAC001" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="query">
+        <EntityTypeShape EntityType="Query_Model.CASEOPER" Width="1.5" PointX="0.75" PointY="0.75" Height="3.3985807291666674" />
+        <EntityTypeShape EntityType="Query_Model.LGN" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9202278645833388" />
+        <EntityTypeShape EntityType="Query_Model.TB0011" Width="1.5" PointX="4.75" PointY="0.75" Height="6.5400805664062531" />
+        <EntityTypeShape EntityType="Query_Model.TB0012" Width="1.5" PointX="6.75" PointY="0.75" Height="9.6815804036458317" />
+        <EntityTypeShape EntityType="Query_Model.TB0014" Width="1.5" PointX="0.75" PointY="7.75" Height="6.9096687825520817" />
+        <EntityTypeShape EntityType="Query_Model.TB0016" Width="1.5" PointX="8.75" PointY="0.75" Height="4.3225512695312531" />
+        <EntityTypeShape EntityType="Query_Model.TB0001" Width="1.5" PointX="3.375" PointY="8.75" Height="3.0289925130208317" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

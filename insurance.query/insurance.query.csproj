@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{69528A6D-2965-4906-9120-8B011E6D00BF}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>insurance.query</RootNamespace>
+    <AssemblyName>insurance.query</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.3.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Helpers" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="query_db.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>query_db.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.js" />
+    <Content Include="css\dataTables.bootstrap.css" />
+    <Content Include="css\main.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="images\login-bg.png" />
+    <Content Include="index.html" />
+    <Content Include="js\controllers\case_oper.js" />
+    <Content Include="js\controllers\illness_payment.js" />
+    <Content Include="js\controllers\main.js" />
+    <Content Include="js\controllers\monthly_statement.js" />
+    <Content Include="js\controllers\personnel_info.js" />
+    <Content Include="js\controllers\summary_list.js" />
+    <Content Include="js\directives\header\header-notification.html" />
+    <Content Include="js\directives\header\header.html" />
+    <Content Include="js\directives\header\header.js" />
+    <Content Include="js\directives\login.js" />
+    <Content Include="js\directives\main.js" />
+    <Content Include="js\directives\sidebar\sidebar.html" />
+    <Content Include="js\directives\sidebar\sidebar.js" />
+    <Content Include="js\libs\angular loading bar\loading-bar.css" />
+    <Content Include="js\libs\angular loading bar\loading-bar.js" />
+    <Content Include="js\libs\angular loading bar\loading-bar.min.css" />
+    <Content Include="js\libs\angular loading bar\loading-bar.min.js" />
+    <Content Include="js\libs\angular ocLazyLoad\ocLazyLoad.js" />
+    <Content Include="js\libs\angular ocLazyLoad\ocLazyLoad.min.js" />
+    <Content Include="js\libs\angular ocLazyLoad\ocLazyLoad.require.js" />
+    <Content Include="js\libs\angular ocLazyLoad\ocLazyLoad.require.min.js" />
+    <Content Include="js\libs\angular ui\angular-ui-router.js" />
+    <Content Include="js\libs\angular ui\angular-ui-router.min.js" />
+    <Content Include="js\libs\angular ui\ui-bootstrap-tpls-1.3.3.js" />
+    <Content Include="js\libs\angular ui\ui-bootstrap-tpls-1.3.3.min.js" />
+    <Content Include="js\libs\angular-loading-bar\loading-bar.css" />
+    <Content Include="js\libs\angular-loading-bar\loading-bar.js" />
+    <Content Include="js\libs\angular-loading-bar\loading-bar.min.css" />
+    <Content Include="js\libs\angular-loading-bar\loading-bar.min.js" />
+    <Content Include="js\libs\angular-ocLazyLoad\ocLazyLoad.js" />
+    <Content Include="js\libs\angular-ocLazyLoad\ocLazyLoad.min.js" />
+    <Content Include="js\libs\angular-ocLazyLoad\ocLazyLoad.require.js" />
+    <Content Include="js\libs\angular-ocLazyLoad\ocLazyLoad.require.min.js" />
+    <Content Include="js\libs\angular-ui\angular-ui-router.js" />
+    <Content Include="js\libs\angular-ui\angular-ui-router.min.js" />
+    <Content Include="js\libs\angular-ui\ui-bootstrap-tpls-1.3.3.js" />
+    <Content Include="js\libs\angular-ui\ui-bootstrap-tpls-1.3.3.min.js" />
+    <Content Include="js\libs\angular\angular-animate.js" />
+    <Content Include="js\libs\angular\angular-animate.min.js" />
+    <Content Include="js\libs\angular\angular-aria.js" />
+    <Content Include="js\libs\angular\angular-aria.min.js" />
+    <Content Include="js\libs\angular\angular-cookies.js" />
+    <Content Include="js\libs\angular\angular-cookies.min.js" />
+    <Content Include="js\libs\angular\angular-csp.css" />
+    <Content Include="js\libs\angular\angular-loader.js" />
+    <Content Include="js\libs\angular\angular-loader.min.js" />
+    <Content Include="js\libs\angular\angular-message-format.js" />
+    <Content Include="js\libs\angular\angular-message-format.min.js" />
+    <Content Include="js\libs\angular\angular-messages.js" />
+    <Content Include="js\libs\angular\angular-messages.min.js" />
+    <Content Include="js\libs\angular\angular-mocks.js" />
+    <Content Include="js\libs\angular\angular-parse-ext.js" />
+    <Content Include="js\libs\angular\angular-parse-ext.min.js" />
+    <Content Include="js\libs\angular\angular-resource.js" />
+    <Content Include="js\libs\angular\angular-resource.min.js" />
+    <Content Include="js\libs\angular\angular-route.js" />
+    <Content Include="js\libs\angular\angular-route.min.js" />
+    <Content Include="js\libs\angular\angular-sanitize.js" />
+    <Content Include="js\libs\angular\angular-sanitize.min.js" />
+    <Content Include="js\libs\angular\angular-scenario.js" />
+    <Content Include="js\libs\angular\angular-touch.js" />
+    <Content Include="js\libs\angular\angular-touch.min.js" />
+    <Content Include="js\libs\angular\angular.js" />
+    <Content Include="js\libs\angular\angular.min.js" />
+    <Content Include="js\libs\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="js\libs\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="js\libs\bootstrap\css\bootstrap.css" />
+    <Content Include="js\libs\bootstrap\css\bootstrap.min.css" />
+    <Content Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="js\libs\bootstrap\js\bootstrap.js" />
+    <Content Include="js\libs\bootstrap\js\bootstrap.min.js" />
+    <Content Include="js\libs\bootstrap\js\npm.js" />
+    <Content Include="js\libs\extend\array.js" />
+    <Content Include="js\libs\extend\tool.js" />
+    <Content Include="js\libs\font-awesome\css\font-awesome.css" />
+    <Content Include="js\libs\font-awesome\css\font-awesome.min.css" />
+    <Content Include="js\libs\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="js\libs\jquery\jquery-1.12.4-vsdoc.js" />
+    <Content Include="js\libs\jquery\jquery-1.12.4.intellisense.js" />
+    <Content Include="js\libs\jquery\jquery-1.12.4.js" />
+    <Content Include="js\libs\jquery\jquery-1.12.4.min.js" />
+    <Content Include="js\libs\plugins\easydialog\easydialog.css" />
+    <Content Include="js\libs\plugins\easydialog\easydialog.min.js" />
+    <Content Include="js\libs\plugins\jquery.cookie.js" />
+    <Content Include="js\libs\plugins\metisMenu\metisMenu.min.css" />
+    <Content Include="js\libs\plugins\metisMenu\metisMenu.min.js" />
+    <Content Include="templates\case_oper.html" />
+    <Content Include="templates\illness_payment.html" />
+    <Content Include="templates\login.html" />
+    <Content Include="templates\main.html" />
+    <Content Include="templates\monthly_statement.html" />
+    <Content Include="templates\personnel_info.html" />
+    <Content Include="templates\summary_list.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.eot" />
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.woff" />
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="js\libs\font-awesome\fonts\FontAwesome.otf" />
+    <EntityDeploy Include="query_db.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>query_db.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4704</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

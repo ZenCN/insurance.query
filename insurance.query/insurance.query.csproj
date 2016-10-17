@@ -81,6 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="back_up\db.txt" />
+    <Content Include="back_up\db_11.txt" />
+    <Content Include="back_up\db_12.txt" />
+    <Content Include="back_up\db_14.txt" />
     <Content Include="css\dataTables.bootstrap.css" />
     <Content Include="css\main.css" />
     <Content Include="favicon.ico" />
@@ -190,6 +194,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="back_up\库表结构.doc" />
     <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />

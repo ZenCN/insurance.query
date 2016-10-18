@@ -65,6 +65,19 @@ tools = {
 
         return out;
     },
+    date_diff: function (sDate1, sDate2) {
+        var aDate, oDate1, oDate2, iDays
+
+        sDate1 = sDate1.replace('年', '-').replace('月', '-').replace('日', '-');
+        aDate = sDate1.split("-");
+        oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为12-18-2006格式
+        sDate2 = sDate2.replace('年', '-').replace('月', '-').replace('日', '-');
+        aDate = sDate2.split("-");
+        oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+        iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24);   //把相差的毫秒数转换为天数
+
+        return iDays;
+    },
     calculator: {
         addition: function(arg1, arg2) {
             var r1,

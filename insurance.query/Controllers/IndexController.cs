@@ -13,6 +13,11 @@ namespace insurance.query.Controllers
     {
         private query_entities db_context = null;
 
+        public FileResult Index()
+        {
+            return base.File("~/index.html", "text/html");
+        }
+
         public string count_substract_info(DateTime? start_time, DateTime? end_time)
         {
             try
@@ -60,11 +65,6 @@ namespace insurance.query.Controllers
             {
                 return exception.Message;
             }
-        }
-
-        public FileResult Index()
-        {
-            return base.File("~/index.html", "text/html");
         }
 
         public string save_case(string case_str, bool is_submit)
@@ -471,79 +471,103 @@ namespace insurance.query.Controllers
             return message;
         }
 
-        public string get_summary_list(DateTime start_time, DateTime end_time)
+        public string get_summary_list(int page_index, int page_size, DateTime? start_time, DateTime? end_time)
         {
-            string response = "";
+            string message = "";
+            List<TB0014> list_14 = new List<TB0014>();
+            List<TB0012> list_12 = new List<TB0012>();
 
             try
             {
                 db_context = new query_entities();
+                list_14 = db_context.TB0014.Where(t => t.AAE031 >= start_time && t.AAE031 <= end_time).ToList();
+                list_12 = db_context.TB0012.Where(t => t.AKC194 >= start_time && t.AKC194 <= end_time).ToList();
 
+                int source_count = list_12.Count();
+                int page_count = ((source_count + page_size) - 1) / page_size;
+                list_12 = list_12.OrderByDescending(t => t.AKC194).Skip((page_index * page_size)).Take(page_size).ToList();
+
+                message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count +
+                          ",\"source\":{\"summary\":" +
+                          JsonConvert.SerializeObject(list_14, new JsonConverter[] {new ChinaDateTimeConverter()}) +
+                          ",\"list\":" +
+                          JsonConvert.SerializeObject(list_12, new JsonConverter[] {new ChinaDateTimeConverter()}) +
+                          "}}";
             }
             catch (Exception ex)
             {
-                response = ex.Message;
+                message = ex.Message;
             }
 
-            return response;
+            return message;
         }
 
-        public string illness_payment_search(string name, string id_card)
+        public string illness_payment_search(int page_index, int page_size, string name, string id_card)
         {
-            string response = "";
+            string message = "";
 
             try
             {
                 db_context = new query_entities();
-                List<TB0011> list = null;
+                List<TB0011> source = new List<TB0011>();
 
                 if (!string.IsNullOrEmpty(name))
                 {
                     List<string> id_card_list =
                         db_context.TB0001.Where(t => t.AAC003.Contains(name)).Select(t => t.AAC003).ToList();
-                    list = db_context.TB0011.Where(t => id_card_list.Contains(t.AAC002)).ToList();
+                    source = db_context.TB0011.Where(t => id_card_list.Contains(t.AAC002)).ToList();
                 }
                 else if (!string.IsNullOrEmpty(id_card))
                 {
-                    list = db_context.TB0011.Where(t => t.AAC002.StartsWith(id_card)).ToList();
+                    source = db_context.TB0011.Where(t => t.AAC002.StartsWith(id_card)).ToList();
                 }
 
-                response = JsonConvert.SerializeObject(list, new JsonConverter[] {new ChinaDateTimeConverter()});
+                int source_count = source.Count();
+                int page_count = ((source_count + page_size) - 1) / page_size;
+                source = source.OrderByDescending(t => t.aae040).Skip((page_index * page_size)).Take(page_size).ToList();
+
+                message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
+                          JsonConvert.SerializeObject(source, new JsonConverter[] {new ChinaDateTimeConverter()}) + "}";
             }
             catch (Exception ex)
             {
-                response = ex.Message;
+                message = ex.Message;
             }
 
-            return response;
+            return message;
         }
 
-        public string search_personnel_info(string name, string id_card)
+        public string search_personnel_info(int page_index, int page_size, string name, string id_card)
         {
-            string response = "";
+            string message = "";
 
             try
             {
                 db_context = new query_entities();
-                List<TB0001> list = null;
+                List<TB0001> source = new List<TB0001>();
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    list = db_context.TB0001.Where(t => t.AAC003.Contains(name)).ToList();
+                    source = db_context.TB0001.Where(t => t.AAC003.Contains(name)).ToList();
                 }
                 else if (!string.IsNullOrEmpty(id_card))
                 {
-                    list = db_context.TB0001.Where(t => t.AAC002.StartsWith(id_card)).ToList();
+                    source = db_context.TB0001.Where(t => t.AAC002.StartsWith(id_card)).ToList();
                 }
 
-                response = JsonConvert.SerializeObject(list, new JsonConverter[] { new ChinaDateTimeConverter() });
+                int source_count = source.Count();
+                int page_count = ((source_count + page_size) - 1) / page_size;
+                source = source.OrderByDescending(t => t.AAC006).Skip((page_index * page_size)).Take(page_size).ToList();
+
+                message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
+                          JsonConvert.SerializeObject(source, new JsonConverter[] { new ChinaDateTimeConverter() }) + "}";
             }
             catch (Exception ex)
             {
-                response = ex.Message;
+                message = ex.Message;
             }
 
-            return response;
+            return message;
         }
     }
 

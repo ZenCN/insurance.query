@@ -3,7 +3,7 @@
         <div class="col-xs-4 col-xs-offset-4">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon">日期：{{date.year}}年</span>
-                <select style="width: 70px;" ng-model="date.month.selected" class="form-control">
+                <select style="width: 70px;" ng-model="date.month.selected" class="form-control" ng-change="search.from_server()">
                     <option ng-repeat="m in date.month.data track by $index" value="{{m}}">{{m}}</option>
                 </select>
                 <!--div style="margin-left: 30px;" class="btn-group btn-group-sm">
@@ -26,38 +26,53 @@
                                         <thead>
                                         <tr role="row">
                                             <th rowspan="1" colspan="1">
-                                                住院人次
+                                                结算人次
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                住院天数
+                                                申报费用
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                医疗费用<br/>总额（元）
+                                                审核拒付
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                药品费用
+                                                审核应付
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                个人支付
+                                                协议扣款
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                统筹支付
+                                                扣付金额
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                调剂金额（元）
+                                                扣付原因
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                商保大病支付
+                                                实际应付金额
+                                            </th>
+                                            <th rowspan="1" colspan="1">
+                                                经办人
+                                            </th>
+                                            <th rowspan="1" colspan="1">
+                                                经办日期
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="_this in _case.search.result" ng-click="_case.search.select(_this)">
+                                        <tr ng-repeat="_this in search.result.summary">
                                             <td>
-                                                {{$index + 1}}
+                                                {{_this.AKB082}}
                                             </td>
                                             <td>
-                                                {{_this.AAE430}}
+                                                {{_this.AKB140}}
+                                            </td>
+                                            <td>
+                                                {{_this.AKB141}}
+                                            </td>
+                                            <td>
+                                                {{_this.AKB142}}
+                                            </td>
+                                            <td>
+                                                {{_this.AKB143}}
                                             </td>
                                             <td>
                                                 {{_this.AKB144}}
@@ -66,16 +81,13 @@
                                                 {{_this.AKB147}}
                                             </td>
                                             <td>
-                                                {{_this.AAE074}}
+                                                {{_this.AKB081}}
                                             </td>
                                             <td>
-                                                {{_this.AAE025}}
+                                                {{_this.AAE011}}
                                             </td>
                                             <td>
-                                                {{_this.AAE026}}
-                                            </td>
-                                            <td>
-                                                {{_this.AAE092}}
+                                                {{_this.AAE036}}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -143,45 +155,45 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="_this in _case.search.result" ng-click="_case.search.select(_this)">
+                                            <tr ng-repeat="_this in search.result.list">
                                                 <td>
                                                     {{_this.AAE430}}
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    {{_this.AAC041}}
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    {{_this.AKC192}}
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    {{_this.AKC194}}
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    {{_this.AKC198}}
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    {{tools.date_diff(_this.AKC192, _this.AKC194)}}
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                                 <td>
-                                                    {{_this.}}
+                                                    <!--{{_this.}}-->
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -193,7 +205,7 @@
                                     <div class="dataTables_length">
                                         <label>
                                             每页显示
-                                            <select ng-change="_case.search.from_server()" ng-model="page.size" class="form-control input-sm"
+                                            <select ng-change="search.from_server()" ng-model="page.size" class="form-control input-sm"
                                                 style="height: 25px;">
                                                 <option value="15" ng-selected="page.size == 15">15</option>
                                                 <option value="25" ng-selected="page.size == 25">25</option>

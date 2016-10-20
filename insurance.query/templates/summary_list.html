@@ -1,14 +1,27 @@
 ﻿<div class="container-fluid b-space" style="padding-top: 15px;">
     <div class="row">
-        <div class="col-xs-4 col-xs-offset-4">
+        <div class="col-xs-8 col-xs-offset-3">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon">日期：{{date.year}}年</span>
                 <select style="width: 70px;" ng-model="date.month.selected" class="form-control" ng-change="search.from_server()">
                     <option ng-repeat="m in date.month.data track by $index" value="{{m}}">{{m}}</option>
                 </select>
-                <!--div style="margin-left: 30px;" class="btn-group btn-group-sm">
-                    <button type="button" class="btn btn-primary" ng-click="search()">搜索</button>
-                </div>-->
+                <div style="margin-left: 30px;" class="btn-group btn-group-sm">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">医院名称</span>
+                        <input type="text" style="width: 200px;" ng-model="search.condition.hospital_name"
+                               typeahead-on-select="hospital_selecting($item, $model, $label, $event)" ng-change="search.condition.hospital_id=''"
+                               placeholder="医院名称" uib-typeahead="_this.name for _this in get_hospital_names($viewValue)"
+                               typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"/>
+                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                        <div ng-show="noResults">
+                            <i class="glyphicon glyphicon-remove"></i> 没有找到
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 30px;" class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-primary" ng-click="search.from_server()">搜索</button>
+                </div>
             </div>
         </div>
     </div>
@@ -26,68 +39,56 @@
                                         <thead>
                                         <tr role="row">
                                             <th rowspan="1" colspan="1">
-                                                结算人次
+                                                住院人次
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                申报费用
+                                                住院天数
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                审核拒付
+                                                医疗费用总额
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                审核应付
+                                                药品费用
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                协议扣款
+                                                个人支付
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                扣付金额
+                                                统筹支付
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                扣付原因
+                                                调剂金额
                                             </th>
                                             <th rowspan="1" colspan="1">
-                                                实际应付金额
-                                            </th>
-                                            <th rowspan="1" colspan="1">
-                                                经办人
-                                            </th>
-                                            <th rowspan="1" colspan="1">
-                                                经办日期
+                                                商保大病支付
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="_this in search.result.summary">
+                                        <tr>
                                             <td>
-                                                {{_this.AKB082}}
+                                                {{search.result.summary.record_count}}
                                             </td>
                                             <td>
-                                                {{_this.AKB140}}
+                                                {{search.result.summary.hospital_days}}
                                             </td>
                                             <td>
-                                                {{_this.AKB141}}
+                                                {{search.result.summary.akc264}}
                                             </td>
                                             <td>
-                                                {{_this.AKB142}}
+                                                {{search.result.summary.akc305}}
                                             </td>
                                             <td>
-                                                {{_this.AKB143}}
+                                                {{search.result.summary.personal_payment}}
                                             </td>
                                             <td>
-                                                {{_this.AKB144}}
+                                                {{search.result.summary.akc260}}
                                             </td>
                                             <td>
-                                                {{_this.AKB147}}
+                                                {{search.result.summary.swap_amount}}
                                             </td>
                                             <td>
-                                                {{_this.AKB081}}
-                                            </td>
-                                            <td>
-                                                {{_this.AAE011}}
-                                            </td>
-                                            <td>
-                                                {{_this.AAE036}}
+                                                {{search.result.summary.bkc287}}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -126,6 +127,9 @@
                                                     出院<br/>日期
                                                 </th>
                                                 <th rowspan="1" colspan="1">
+                                                    出院诊断
+                                                </th>
+                                                <th rowspan="1" colspan="1">
                                                     第一副<br/>诊断
                                                 </th>
                                                 <th rowspan="1" colspan="1">
@@ -157,7 +161,7 @@
                                         <tbody>
                                             <tr ng-repeat="_this in search.result.list">
                                                 <td>
-                                                    {{_this.AAE430}}
+                                                    {{_this.AAC003}}
                                                 </td>
                                                 <td>
                                                     {{_this.AAC041}}
@@ -169,31 +173,34 @@
                                                     {{_this.AKC194}}
                                                 </td>
                                                 <td>
+                                                    {{_this.AKC195}}
+                                                </td>
+                                                <td>
                                                     {{_this.AKC198}}
                                                 </td>
                                                 <td>
-                                                    {{tools.date_diff(_this.AKC192, _this.AKC194)}}
+                                                    {{_this.akc336}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.akc264}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.akc305}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.disease_cost_limits}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.personal_payment}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.akc260}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.swap_amount}}
                                                 </td>
                                                 <td>
-                                                    <!--{{_this.}}-->
+                                                    {{_this.bkc287}}
                                                 </td>
                                             </tr>
                                         </tbody>

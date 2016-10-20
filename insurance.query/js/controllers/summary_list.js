@@ -4,7 +4,8 @@
             $scope.page.load_data = function () {
                 var month = $scope.date.month.selected.replace('月', '');
                 var url = 'index/get_summary_list?page_index=' + $scope.page.index + '&page_size=' + $scope.page.size +
-                    '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month);
+                    '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month) +
+                    '&hospital_id=' + $scope.search.condition.hospital_id;
                 
                 $http.get(url).then(function (response) {
                     if (angular.isObject(response.data)) {
@@ -42,14 +43,31 @@
             };
 
             $scope.search = {
-                result: {},
-                from_server: function() {
-                    $scope.page.inited = false;
-                    $scope.page.index = 0;
-                    $scope.page.load_data();
+                condition: {
+                    hospital_id: undefined,
+                    hospital_name: undefined
+                },
+                from_server: function () {
+                    if (typeof this.condition.hospital_id != "string" || this.condition.hospital_id.trim().length == 0) {
+                        msg('请输入要查询的医院');
+                    } else if (this.condition.hospital_id.indexOf('430101') < 0) {
+                        msg('目前只能查询长沙的医院');
+                    } else {
+                        $scope.page.inited = false;
+                        $scope.page.index = 0;
+                        $scope.page.load_data();
+                    }
+
                 }
             };
 
-            $scope.search.from_server();
+            $scope.get_hospital_names = function(val) {
+                return $http.get('index/search_hospital?name=' + val).then(function (response) {
+                    return response.data;
+                });
+            };
+            $scope.hospital_selecting = function ($item, $model, $label, $event) {
+                $scope.search.condition.hospital_id = $item.id;
+            };
         }
     ]);

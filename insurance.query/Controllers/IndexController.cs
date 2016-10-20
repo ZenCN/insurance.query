@@ -497,9 +497,9 @@ namespace insurance.query.Controllers
                         akc264 = t04.akc264,
                         akc305 = t04.AKC305,
                         disease_cost_limits = "", //病种费用限额
-                        personal_payment = Convert.ToDouble(t04.akc264) - Convert.ToDouble(t04.akc260), //个人支付
+                        personal_payment = (t04.akc264 == null ? 0 : t04.akc264) - (t04.akc260 == null ? 0 : t04.akc260), //个人支付
                         akc260 = t04.akc260,
-                        swap_amount = "",  //调剂金额
+                        swap_amount = "", //调剂金额
                         bkc287 = t04.bkc287
                     };
                 var source_t04 = db_context.TB0004.Where(t => t.aae040 >= start_time && t.aae040 <= end_time);
@@ -510,24 +510,45 @@ namespace insurance.query.Controllers
                     akc264 = list.Sum(t => t.akc264),
                     akc305 = list.Sum(t => t.akc305),
                     personal_payment = list.Sum(t => t.personal_payment),
-                    akc260 = list.Sum(t => t.akc260);
+                    akc260 = list.Sum(t => t.akc260),
                     swap_amount = "",  //调剂金额
                     bkc287 = list.Sum(t => t.bkc287)
                 };
 
-
-                list_12 = db_context.TB0012.Where(t => t.AKC194 >= start_time && t.AKC194 <= end_time).ToList();
-
-                int source_count = list_12.Count();
+                int source_count = list.Count();
                 int page_count = ((source_count + page_size) - 1) / page_size;
-                list_12 = list_12.OrderByDescending(t => t.AKC194).Skip((page_index * page_size)).Take(page_size).ToList();
+                list = list.OrderByDescending(t => t.AKC194).Skip((page_index * page_size)).Take(page_size);
 
                 message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count +
                           ",\"source\":{\"summary\":" +
-                          JsonConvert.SerializeObject(list_14, new JsonConverter[] {new ChinaDateTimeConverter()}) +
+                          JsonConvert.SerializeObject(summary, new JsonConverter[] { new ChinaDateTimeConverter() }) +
                           ",\"list\":" +
-                          JsonConvert.SerializeObject(list_12, new JsonConverter[] {new ChinaDateTimeConverter()}) +
+                          JsonConvert.SerializeObject(list.ToList(), new JsonConverter[] { new ChinaDateTimeConverter() }) +
                           "}}";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return message;
+        }
+
+        public string search_hospital(string name)
+        {
+            string message = "";
+            try
+            {
+                db_context = new query_entities();
+                var list = (from t05 in db_context.TB0005
+                    where t05.akb021.Contains(name)
+                    select new
+                    {
+                        name = t05.akb021,
+                        id = t05.akb020
+                    }).ToList();
+
+                message = JsonConvert.SerializeObject(list);
             }
             catch (Exception ex)
             {

@@ -81,11 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="back_up\db.txt" />
-    <Content Include="back_up\db_11.txt" />
-    <Content Include="back_up\db_12.txt" />
-    <Content Include="back_up\db_14.txt" />
-    <Content Include="back_up\需求.txt" />
+    <Content Include="back_up\bug.txt" />
+    <Content Include="back_up\query.sql" />
     <Content Include="css\dataTables.bootstrap.css" />
     <Content Include="css\main.css" />
     <Content Include="favicon.ico" />

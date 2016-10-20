@@ -471,16 +471,51 @@ namespace insurance.query.Controllers
             return message;
         }
 
-        public string get_summary_list(int page_index, int page_size, DateTime? start_time, DateTime? end_time)
+        public string get_summary_list(int page_index, int page_size, string hospital_id, DateTime? start_time, DateTime? end_time)
         {
             string message = "";
-            List<TB0014> list_14 = new List<TB0014>();
-            List<TB0012> list_12 = new List<TB0012>();
-
             try
             {
                 db_context = new query_entities();
-                list_14 = db_context.TB0014.Where(t => t.AAE031 >= start_time && t.AAE031 <= end_time).ToList();
+
+                var list = from t12 in db_context.TB0012
+                    join t01 in db_context.TB0001
+                        on t12.AAC001 equals t01.AAC001
+                    join t04 in db_context.TB0004
+                        on new {AKB020 = t12.AKB020, AKC190 = t12.AKC190, AAC001 = t12.AAC001}
+                        equals new {AKB020 = t04.akb020, AKC190 = t04.akc190, AAC001 = t04.aac001}
+                    where t12.AKB020 == hospital_id
+                    select new
+                    {
+                        AAC003 = t01.AAC003,
+                        AAC041 = t01.AAC041,
+                        AKC192 = t12.AKC192,
+                        AKC194 = t12.AKC194,
+                        AKC195 = t12.AKC195,
+                        AKC198 = t12.AKC198,
+                        akc336 = t04.akc336,
+                        akc264 = t04.akc264,
+                        akc305 = t04.AKC305,
+                        disease_cost_limits = "", //病种费用限额
+                        personal_payment = Convert.ToDouble(t04.akc264) - Convert.ToDouble(t04.akc260), //个人支付
+                        akc260 = t04.akc260,
+                        swap_amount = "",  //调剂金额
+                        bkc287 = t04.bkc287
+                    };
+                var source_t04 = db_context.TB0004.Where(t => t.aae040 >= start_time && t.aae040 <= end_time);
+                var summary = new
+                {
+                    record_count = source_t04.Count(), 
+                    hospital_days = source_t04.Sum(t => t.akc336),
+                    akc264 = list.Sum(t => t.akc264),
+                    akc305 = list.Sum(t => t.akc305),
+                    personal_payment = list.Sum(t => t.personal_payment),
+                    akc260 = list.Sum(t => t.akc260);
+                    swap_amount = "",  //调剂金额
+                    bkc287 = list.Sum(t => t.bkc287)
+                };
+
+
                 list_12 = db_context.TB0012.Where(t => t.AKC194 >= start_time && t.AKC194 <= end_time).ToList();
 
                 int source_count = list_12.Count();
@@ -509,25 +544,109 @@ namespace insurance.query.Controllers
             try
             {
                 db_context = new query_entities();
-                List<TB0011> source = new List<TB0011>();
+                int source_count = 0;
+                int page_count = 0;
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    List<string> id_card_list =
-                        db_context.TB0001.Where(t => t.AAC003.Contains(name)).Select(t => t.AAC003).ToList();
-                    source = db_context.TB0011.Where(t => id_card_list.Contains(t.AAC002)).ToList();
+                    var source = from t01 in db_context.TB0001
+                        join t11 in db_context.TB0011
+                            on t01.AAC002 equals t11.AAC002
+                        where t01.AAC003.Contains(name) && t11.AKC197 == 1
+                        select new
+                        {
+                            AAC003 = t01.AAC003,
+                            AAC002 = t01.AAC002,
+                            aae040 = t11.aae040,
+                            akc268 = t11.akc268,
+                            akc269 = t11.akc269,
+                            akc264 = t11.akc264,
+                            akc261 = t11.akc261,
+                            akc260 = t11.akc260,
+                            akc283 = t11.akc283,
+                            akc259 = t11.akc259,
+                            ckc281 = t11.ckc281,
+                            ckc282 = t11.ckc282,
+                            ckc283 = t11.ckc283,
+                            bkc284 = t11.bkc284,
+                            ckc285 = t11.ckc285,
+                            bkc286 = t11.bkc286
+                        };
+                    
+                    source_count = source.Count();
+                    page_count = ((source_count + page_size) - 1) / page_size;
+                    var list = source.OrderByDescending(t => t.aae040).Skip((page_index * page_size)).Take(page_size).ToList();
+
+                    message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
+                          JsonConvert.SerializeObject(list, new JsonConverter[] { new ChinaDateTimeConverter() }) + "}";
                 }
                 else if (!string.IsNullOrEmpty(id_card))
                 {
-                    source = db_context.TB0011.Where(t => t.AAC002.StartsWith(id_card)).ToList();
+                    var source = from t01 in db_context.TB0001
+                                 join t11 in db_context.TB0011
+                                     on t01.AAC002 equals t11.AAC002
+                                 where t01.AAC002.StartsWith(id_card) && t11.AKC197 == 1
+                                 select new
+                                 {
+                                     AAC003 = t01.AAC003,
+                                     AAC002 = t01.AAC002,
+                                     aae040 = t11.aae040,
+                                     akc268 = t11.akc268,
+                                     akc269 = t11.akc269,
+                                     akc264 = t11.akc264,
+                                     akc261 = t11.akc261,
+                                     akc260 = t11.akc260,
+                                     akc283 = t11.akc283,
+                                     akc259 = t11.akc259,
+                                     ckc281 = t11.ckc281,
+                                     ckc282 = t11.ckc282,
+                                     ckc283 = t11.ckc283,
+                                     bkc284 = t11.bkc284,
+                                     ckc285 = t11.ckc285,
+                                     bkc286 = t11.bkc286
+                                 };
+
+                    source_count = source.Count();
+                    page_count = ((source_count + page_size) - 1)/page_size;
+                    var list = source.OrderByDescending(t => t.aae040).Skip((page_index*page_size)).Take(page_size).ToList();
+
+                    message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
+                          JsonConvert.SerializeObject(list, new JsonConverter[] { new ChinaDateTimeConverter() }) + "}";
                 }
+                else
+                {
+                    var source = from t11 in db_context.TB0011
+                        join t01 in db_context.TB0001
+                            on t11.AAC002 equals t01.AAC002 into _group
+                        from tb01 in _group.DefaultIfEmpty()
+                        where t11.AKC197 == 1
+                        select new
+                        {
+                            AAC003 = tb01 == null ? "" : tb01.AAC003,
+                            AAC002 = tb01 == null ? "" : tb01.AAC002,
+                            aae040 = t11.aae040,
+                            akc268 = t11.akc268,
+                            akc269 = t11.akc269,
+                            akc264 = t11.akc264,
+                            akc261 = t11.akc261,
+                            akc260 = t11.akc260,
+                            akc283 = t11.akc283,
+                            akc259 = t11.akc259,
+                            ckc281 = t11.ckc281,
+                            ckc282 = t11.ckc282,
+                            ckc283 = t11.ckc283,
+                            bkc284 = t11.bkc284,
+                            ckc285 = t11.ckc285,
+                            bkc286 = t11.bkc286
+                        };
 
-                int source_count = source.Count();
-                int page_count = ((source_count + page_size) - 1) / page_size;
-                source = source.OrderByDescending(t => t.aae040).Skip((page_index * page_size)).Take(page_size).ToList();
+                    source_count = source.Count();
+                    page_count = ((source_count + page_size) - 1) / page_size;
+                    var list = source.OrderByDescending(t => t.aae040).Skip((page_index * page_size)).Take(page_size).ToList();
 
-                message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
-                          JsonConvert.SerializeObject(source, new JsonConverter[] {new ChinaDateTimeConverter()}) + "}";
+                    message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
+                          JsonConvert.SerializeObject(list, new JsonConverter[] { new ChinaDateTimeConverter() }) + "}";
+                }
             }
             catch (Exception ex)
             {
@@ -544,23 +663,33 @@ namespace insurance.query.Controllers
             try
             {
                 db_context = new query_entities();
-                List<TB0001> source = new List<TB0001>();
+                List<TB0001> list = new List<TB0001>();
+                int source_count = 0;
+                int page_count = 0;
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    source = db_context.TB0001.Where(t => t.AAC003.Contains(name)).ToList();
+                    var source = db_context.TB0001.Where(t => t.AAC003.Contains(name));
+                    source_count = source.Count();
+                    page_count = ((source_count + page_size) - 1) / page_size;
+                    list = source.OrderByDescending(t => t.AAC006).Skip((page_index*page_size)).Take(page_size).ToList();
                 }
                 else if (!string.IsNullOrEmpty(id_card))
                 {
-                    source = db_context.TB0001.Where(t => t.AAC002.StartsWith(id_card)).ToList();
+                    var source = db_context.TB0001.Where(t => t.AAC002.StartsWith(id_card));
+                    source_count = source.Count();
+                    page_count = ((source_count + page_size) - 1) / page_size;
+                    list = source.OrderByDescending(t => t.AAC006).Skip((page_index*page_size)).Take(page_size).ToList();
+                }
+                else
+                {
+                    source_count = db_context.TB0001.Count();
+                    page_count = ((source_count + page_size) - 1) / page_size;
+                    list = db_context.TB0001.OrderByDescending(t => t.AAC006).Skip((page_index * page_size)).Take(page_size).ToList();
                 }
 
-                int source_count = source.Count();
-                int page_count = ((source_count + page_size) - 1) / page_size;
-                source = source.OrderByDescending(t => t.AAC006).Skip((page_index * page_size)).Take(page_size).ToList();
-
                 message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count + ",\"source\":" +
-                          JsonConvert.SerializeObject(source, new JsonConverter[] { new ChinaDateTimeConverter() }) + "}";
+                          JsonConvert.SerializeObject(list, new JsonConverter[] { new ChinaDateTimeConverter() }) + "}";
             }
             catch (Exception ex)
             {

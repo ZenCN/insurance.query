@@ -5,8 +5,8 @@
                 var month = $scope.date.month.selected.replace('月', '');
                 var url = 'index/get_summary_list?page_index=' + $scope.page.index + '&page_size=' + $scope.page.size +
                     '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month) +
-                    '&hospital_id=' + $scope.search.condition.hospital_id;
-                
+                    '&hospital_id=' + $scope.search.condition.hospital_id + '&state=' + $scope.search.condition.state;
+
                 $http.get(url).then(function (response) {
                     if (angular.isObject(response.data)) {
                         $scope.search.result = response.data.source;
@@ -44,6 +44,7 @@
 
             $scope.search = {
                 condition: {
+                    state: '3',
                     hospital_id: undefined,
                     hospital_name: undefined
                 },
@@ -61,13 +62,30 @@
                 }
             };
 
-            $scope.get_hospital_names = function(val) {
+            $scope.get_hospital_names = function (val) {
                 return $http.get('index/search_hospital?name=' + val).then(function (response) {
                     return response.data;
                 });
             };
             $scope.hospital_selecting = function ($item, $model, $label, $event) {
                 $scope.search.condition.hospital_id = $item.id;
+            };
+
+            $scope.query_person_type = function (val) {
+                switch (parseInt(val)) {
+                    case 1:
+                        return '一般人员';
+                    case 2:
+                        return '低保家庭';
+                    case 3:
+                        return '重度残疾';
+                    case 4:
+                        return '三无人员';
+                    case 5:
+                        return '困难人员';
+                    default:
+                        return "";
+                }
             };
         }
     ]);

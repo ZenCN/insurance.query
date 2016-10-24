@@ -471,38 +471,70 @@ namespace insurance.query.Controllers
             return message;
         }
 
-        public string get_summary_list(int page_index, int page_size, string hospital_id, DateTime? start_time, DateTime? end_time)
+        private string query_personal_info(string AAC002, string type) {
+            string result = "";
+
+            if (type == "name")
+            {
+                result = db_context.TB0001.Where(t => t.AAC002 == AAC002).Select(t => t.AAC003).SingleOrDefault();
+            }
+            else {  //AC041
+                result = db_context.TB0001.Where(t => t.AAC002 == AAC002).Select(t => t.AAC041).SingleOrDefault();
+            }
+
+            return result;
+        }
+
+        public string get_summary_list(int page_index, int page_size, string hospital_id, string state, DateTime? start_time, DateTime? end_time)
         {
             string message = "";
             try
             {
                 db_context = new query_entities();
+                IQueryable<TB0004> q_t04 = null;
 
-                var list = from t12 in db_context.TB0012
-                    join t01 in db_context.TB0001
-                        on t12.AAC001 equals t01.AAC001
-                    join t04 in db_context.TB0004
-                        on new {AKB020 = t12.AKB020, AKC190 = t12.AKC190, AAC001 = t12.AAC001}
-                        equals new {AKB020 = t04.akb020, AKC190 = t04.akc190, AAC001 = t04.aac001}
-                    where t12.AKB020 == hospital_id
-                    select new
-                    {
-                        AAC003 = t01.AAC003,
-                        AAC041 = t01.AAC041,
-                        AKC192 = t12.AKC192,
-                        AKC194 = t12.AKC194,
-                        AKC195 = t12.AKC195,
-                        AKC198 = t12.AKC198,
-                        akc336 = t04.akc336,
-                        akc264 = t04.akc264,
-                        akc305 = t04.AKC305,
-                        disease_cost_limits = "", //病种费用限额
-                        personal_payment = (t04.akc264 == null ? 0 : t04.akc264) - (t04.akc260 == null ? 0 : t04.akc260), //个人支付
-                        akc260 = t04.akc260,
-                        swap_amount = "", //调剂金额
-                        bkc287 = t04.bkc287
-                    };
-                var source_t04 = db_context.TB0004.Where(t => t.aae040 >= start_time && t.aae040 <= end_time);
+                if (string.IsNullOrEmpty(state))
+                {
+                    q_t04 =
+                        db_context.TB0004.Where(
+                            t => t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id);
+                }
+                else
+                {
+                    q_t04 =
+                        db_context.TB0004.Where(
+                            t =>
+                                t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
+                                t.aae117 == state);
+                }
+
+                var source_t04 = q_t04.ToList();
+                var list = from t04 in source_t04
+                           join t12 in db_context.TB0012
+                           on new { AKB020 = t04.akb020, AKC190 = t04.akc190, AAC001 = t04.aac001 }
+                               equals new { AKB020 = t12.AKB020, AKC190 = t12.AKC190, AAC001 = t12.AAC001 }
+                               into _group
+                           from g in _group.DefaultIfEmpty()
+                           join t01 in db_context.TB0001
+                               on t04.aac001 equals t01.AAC001
+                           select new
+                           {
+                               AAC003 = t01.AAC003,
+                               AAC041 = t01.AAC041,
+                               AKC192 = g == null ? null : g.AKC192,
+                               AKC194 = g == null ? null : g.AKC194,
+                               AKC195 = g == null ? "" : g.AKC195,
+                               AKC198 = g == null ? "" : g.AKC198,
+                               akc336 = t04.akc336,
+                               akc264 = t04.akc264,
+                               akc305 = t04.AKC305,
+                               disease_cost_limits = "", //病种费用限额
+                               personal_payment = (t04.akc264 == null ? 0 : t04.akc264) - (t04.akc260 == null ? 0 : t04.akc260), //个人支付
+                               akc260 = t04.akc260,
+                               swap_amount = "", //调剂金额
+                               bkc287 = t04.bkc287
+                           };
+
                 var summary = new
                 {
                     record_count = source_t04.Count(), 

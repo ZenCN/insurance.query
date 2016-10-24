@@ -95,9 +95,5 @@
                     //默认的方法 for case search
                 }
             };
-
-//            $scope.datapicker = function($scope) {
-//                
-//            };
         }
     ]);

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="D:\商保项目网站及源码\发布的网站" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="配置文件1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="js/libs/angular-ui/angular-ui-router.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/plugins/metisMenu/metisMenu.min.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-ocLazyLoad/ocLazyLoad.require.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-messages.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-parse-ext.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="bin/EntityFramework.xml" publishTime="10/17/2016 10:08:29" />
+    <file relUrl="js/libs/extend/array.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/directives/login.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/controllers/monthly_statement.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="Web.config" publishTime="10/24/2016 11:44:06" />
+    <file relUrl="js/libs/angular-ui/ui-bootstrap-tpls-1.3.3.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="bin/insurance.query.pdb" publishTime="10/24/2016 11:44:05" />
+    <file relUrl="js/libs/angular loading bar/loading-bar.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-scenario.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/extend/tool.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/controllers/summary_list.js" publishTime="10/24/2016 11:37:07" />
+    <file relUrl="js/libs/angular/angular-aria.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-sanitize.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ocLazyLoad/ocLazyLoad.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/bootstrap/css/bootstrap-theme.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-animate.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/bootstrap/css/bootstrap.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/plugins/jquery.cookie.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="bin/Newtonsoft.Json.xml" publishTime="10/17/2016 10:10:51" />
+    <file relUrl="js/libs/bootstrap/js/npm.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-touch.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-aria.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ui/angular-ui-router.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-loading-bar/loading-bar.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-touch.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-loading-bar/loading-bar.min.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/controllers/main.js" publishTime="10/24/2016 11:42:17" />
+    <file relUrl="js/directives/header/header.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/controllers/personnel_info.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/jquery/jquery-1.12.4.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-sanitize.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-messages.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-ocLazyLoad/ocLazyLoad.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-mocks.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/directives/main.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-loader.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/directives/sidebar/sidebar.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/plugins/easydialog/easydialog.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/bootstrap/css/bootstrap.min.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="10/17/2016 10:10:51" />
+    <file relUrl="js/libs/angular/angular-parse-ext.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="templates/personnel_info.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="app.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/directives/header/header-notification.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular loading bar/loading-bar.min.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-csp.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-route.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ui/ui-bootstrap-tpls-1.3.3.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="css/dataTables.bootstrap.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="index.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-cookies.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="images/login-bg.png" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/bootstrap/css/bootstrap-theme.min.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/directives/sidebar/sidebar.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="packages.config" publishTime="10/17/2016 10:10:51" />
+    <file relUrl="js/libs/angular loading bar/loading-bar.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-loading-bar/loading-bar.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-route.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-message-format.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ocLazyLoad/ocLazyLoad.require.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/jquery/jquery-1.12.4.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="back_up/bug.txt" publishTime="10/20/2016 11:14:01" />
+    <file relUrl="js/libs/angular/angular.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-loading-bar/loading-bar.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-ui/ui-bootstrap-tpls-1.3.3.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/bootstrap/js/bootstrap.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular loading bar/loading-bar.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/jquery/jquery-1.12.4.intellisense.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ocLazyLoad/ocLazyLoad.require.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-loader.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-resource.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/plugins/easydialog/easydialog.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-animate.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/directives/header/header.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="favicon.ico" publishTime="10/17/2016 09:46:45" />
+    <file relUrl="templates/summary_list.html" publishTime="10/24/2016 11:38:01" />
+    <file relUrl="js/libs/angular-ui/angular-ui-router.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/font-awesome/css/font-awesome.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/plugins/metisMenu/metisMenu.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="templates/case_oper.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="bin/EntityFramework.dll" publishTime="10/17/2016 10:08:29" />
+    <file relUrl="js/controllers/illness_payment.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ui/angular-ui-router.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="templates/illness_payment.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ocLazyLoad/ocLazyLoad.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="Global.asax" publishTime="10/17/2016 09:43:59" />
+    <file relUrl="js/libs/font-awesome/fonts/fontawesome-webfont.svg" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular ui/ui-bootstrap-tpls-1.3.3.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="bin/insurance.query.dll" publishTime="10/24/2016 11:44:05" />
+    <file relUrl="js/libs/bootstrap/fonts/glyphicons-halflings-regular.svg" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/bootstrap/js/bootstrap.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="templates/login.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-message-format.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="templates/main.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-ocLazyLoad/ocLazyLoad.require.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="templates/monthly_statement.html" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-resource.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/font-awesome/css/font-awesome.min.css" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="back_up/query.sql" publishTime="10/20/2016 09:36:48" />
+    <file relUrl="js/libs/jquery/jquery-1.12.4-vsdoc.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="css/main.css" publishTime="10/24/2016 11:16:46" />
+    <file relUrl="js/controllers/case_oper.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular-ocLazyLoad/ocLazyLoad.min.js" publishTime="10/20/2016 17:33:12" />
+    <file relUrl="js/libs/angular/angular-cookies.js" publishTime="10/20/2016 17:33:12" />
+  </publishProfile>
+</publishData>

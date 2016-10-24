@@ -491,24 +491,23 @@ namespace insurance.query.Controllers
             try
             {
                 db_context = new query_entities();
-                IQueryable<TB0004> q_t04 = null;
+                IQueryable<TB0004> source_t04 = null;
 
                 if (string.IsNullOrEmpty(state))
                 {
-                    q_t04 =
+                    source_t04 =
                         db_context.TB0004.Where(
                             t => t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id);
                 }
                 else
                 {
-                    q_t04 =
+                    source_t04 =
                         db_context.TB0004.Where(
                             t =>
                                 t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
                                 t.aae117 == state);
                 }
 
-                var source_t04 = q_t04.ToList();
                 var list = from t04 in source_t04
                            join t12 in db_context.TB0012
                            on new { AKB020 = t04.akb020, AKC190 = t04.akc190, AAC001 = t04.aac001 }
@@ -553,9 +552,9 @@ namespace insurance.query.Controllers
 
                 message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count +
                           ",\"source\":{\"summary\":" +
-                          JsonConvert.SerializeObject(summary, new JsonConverter[] { new ChinaDateTimeConverter() }) +
+                          JsonConvert.SerializeObject(summary) +
                           ",\"list\":" +
-                          JsonConvert.SerializeObject(list.ToList(), new JsonConverter[] { new ChinaDateTimeConverter() }) +
+                          JsonConvert.SerializeObject(list.ToList()) +
                           "}}";
             }
             catch (Exception ex)

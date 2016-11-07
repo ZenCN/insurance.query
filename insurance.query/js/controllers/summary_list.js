@@ -46,9 +46,11 @@
 
             $scope.export = function () {
                 if ($scope.search.result.list.length > 0) {
-                    window.open("index/export_to_excel?summary_json=" + angular.toJson($scope.search.result.summary) +
-                        "&list_json=" + angular.toJson($scope.search.result.list) + '&date=' + $scope.date.year + '年' +
-                        $scope.date.month.selected + "&hospital_name=" + $scope.search.condition.hospital_name);
+                    var month = $scope.date.month.selected.replace('月', '');
+                    window.open('index/export_to_excel?hospital_id=' + $scope.search.condition.hospital_id +
+                        '&hospital_name=' + $scope.search.condition.hospital_name +
+                        '&area_code=' + $scope.search.condition.area_code + '&state=' + $scope.search.condition.state +
+                        '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month));
                 } else {
                     msg('没有清单数据');
                 }
@@ -87,23 +89,21 @@
                 $scope.search.condition.hospital_id = $item.id;
             };
 
-            $scope.query_person_type = function (_this) {
-                switch (parseInt(_this.AAC041)) {
+            $scope.query_person_type = function (val) {
+                switch (parseInt(val)) {
                     case 1:
-                        _this.AAC041 = '一般人员';
+                        return '一般人员';
                     case 2:
-                        _this.AAC041 = '低保家庭';
+                        return '低保家庭';
                     case 3:
-                        _this.AAC041 = '重度残疾';
+                        return '重度残疾';
                     case 4:
-                        _this.AAC041 = '三无人员';
+                        return '三无人员';
                     case 5:
-                        _this.AAC041 = '困难人员';
+                        return '困难人员';
                     default:
-                        _this.AAC041 = "";
+                        return "";
                 }
-
-                return _this.AAC041;
             };
         }
     ]);

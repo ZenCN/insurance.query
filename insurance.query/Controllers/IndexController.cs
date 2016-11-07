@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 using Newtonsoft.Json.Converters;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
@@ -488,7 +487,7 @@ namespace insurance.query.Controllers
             return result;
         }
 
-        public string get_summary_list(int page_index, int page_size, string hospital_id, string area_code, string state, DateTime? start_time, DateTime? end_time)
+        public string get_summary_list(int page_index, int page_size, string hospital_id, string area_code, string state, DateTime start_time, DateTime end_time)
         {
             string message = "";
             try
@@ -760,18 +759,77 @@ namespace insurance.query.Controllers
             return message;
         }
 
-        public void export_to_excel(string summary_json, string list_json, string date, string hospital_name)
+        public void export_to_excel(string hospital_id, string area_code, string state, DateTime start_time, DateTime end_time, string hospital_name)
         {
-            Summary sum = JsonConvert.DeserializeObject<Summary>(summary_json);
-            List<SumList> list = JsonConvert.DeserializeObject<List<SumList>>(list_json);
+            db_context = new query_entities();
+            IQueryable<TB0004> source_t04 = null;
 
-            new ExcelOper().export(sum, list, date, hospital_name);
+            if (string.IsNullOrEmpty(state))
+            {
+                source_t04 =
+                    db_context.TB0004.Where(
+                        t => t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id && t.aab324 == area_code);
+            }
+            else
+            {
+                source_t04 =
+                    db_context.TB0004.Where(
+                        t =>
+                            t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
+                            t.aae117 == state && t.aab324 == area_code);
+            }
+
+            var list = (from t04 in source_t04
+                join t12 in db_context.TB0012
+                    on new {AKB020 = t04.akb020, AKC190 = t04.akc190, AAC001 = t04.aac001}
+                    equals new {AKB020 = t12.AKB020, AKC190 = t12.AKC190, AAC001 = t12.AAC001}
+                    into _group
+                from g in _group.DefaultIfEmpty()
+                join t01 in db_context.TB0001
+                    on t04.aac001 equals t01.AAC001
+                select new excel_model
+                {
+                    AAC003 = t01.AAC003,
+                    AAC041 = t01.AAC041,
+                    _AKC192 = g == null ? null : g.AKC192,
+                    _AKC194 = g == null ? null : g.AKC194,
+                    AKC195 = g == null ? "" : g.AKC195,
+                    AKC198 = g == null ? "" : g.AKC198,
+                    _hospital_days = t04.akc336,
+                    _akc264 = t04.akc264,
+                    _akc305 = t04.AKC305,
+                    akc190 = t04.akc190,
+                    _akc253 = t04.akc253,
+                    _akc280 = t04.akc280,
+                    disease_cost_limits = "", //病种费用限额
+                    //disease_cost_limits = (t04.akc261 == null ? 0 : t04.akc261) + (t04.akc260 == null ? 0 : t04.akc260)
+                    //+ (t04.akc283 == null ? 0 : t04.akc283), //病种费用限额
+                    _personal_payment = (t04.akc264 == null ? 0 : t04.akc264) - (t04.akc260 == null ? 0 : t04.akc260),  //个人支付
+                    _akc260 = t04.akc260,
+                    swap_amount = "", //调剂金额
+                    _bkc287 = t04.bkc287
+                }).OrderByDescending(t => t._AKC194).ToList();
+
+            var sum = new excel_model
+            {
+                record_count = source_t04.Count().ToString(),
+                _hospital_days = source_t04.Sum(t => t.akc336),
+                _akc253 = source_t04.Sum(t => t.akc253),
+                _akc264 = list.Sum(t => t._akc264),
+                _akc305 = list.Sum(t => t._akc305),
+                _personal_payment = list.Sum(t => t._personal_payment),
+                _akc260 = list.Sum(t => t._akc260),
+                swap_amount = "",  //调剂金额
+                _bkc287 = list.Sum(t => t._bkc287)
+            };
+
+            new ExcelOper().export(sum, list, start_time.ToString("yyyy年M月"), hospital_name);
         }
     }
 
     public class ExcelOper
     {
-        public void export(Summary sum, List<SumList> list, string date, string hospital_name)
+        public void export(excel_model sum, List<excel_model> list, string date, string hospital_name)
         {
             HSSFWorkbook hssfworkbook;
             using (FileStream file = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "excel/model.xls", FileMode.Open, FileAccess.Read))
@@ -810,7 +868,7 @@ namespace insurance.query.Controllers
                 cell.CellStyle = cell_style;
 
                 cell = sheet.GetRow(strat_row + i).GetCell(2);
-                cell.SetCellValue(list[i].AAC041);
+                cell.SetCellValue(QueryPersonType(list[i].AAC041.Trim().Length > 0 ? int.Parse(list[i].AAC041) : 0));
                 cell.CellStyle = cell_style;
 
                 cell = sheet.GetRow(strat_row + i).GetCell(3);
@@ -830,7 +888,7 @@ namespace insurance.query.Controllers
                 cell.CellStyle = cell_style;
 
                 cell = sheet.GetRow(strat_row + i).GetCell(7);
-                cell.SetCellValue(list[i].akc336);
+                cell.SetCellValue(list[i].hospital_days);
                 cell.CellStyle = cell_style;
 
                 cell = sheet.GetRow(strat_row + i).GetCell(8);
@@ -873,7 +931,26 @@ namespace insurance.query.Controllers
             ResponseExcel(hssfworkbook, date, hospital_name);
         }
 
-        public ISheet CreateCell(ISheet sheet, int row_count, int col_count, int start_row)
+        private string QueryPersonType(int val)
+        {
+            switch (val)
+            {
+                case 1:
+                    return "一般人员";
+                case 2:
+                    return "低保家庭";
+                case 3:
+                    return "重度残疾";
+                case 4:
+                    return "三无人员";
+                case 5:
+                    return "困难人员";
+                default:
+                    return "";
+            }
+        }
+
+        private ISheet CreateCell(ISheet sheet, int row_count, int col_count, int start_row)
         {
             for (int i = 0; i <= row_count; i++)
             {
@@ -909,7 +986,7 @@ namespace insurance.query.Controllers
             return style;
         }
 
-        public void ResponseExcel(HSSFWorkbook hssfworkbook, string date, string hospital_name)
+        private void ResponseExcel(HSSFWorkbook hssfworkbook, string date, string hospital_name)
         {
             // 设置响应头（文件名和文件格式）
             //设置响应的类型为Excel
@@ -933,38 +1010,86 @@ namespace insurance.query.Controllers
         }
     }
 
-    public class Summary
+    public class excel_model
     {
-        public string record_count;
-        public string hospital_days;
-        public string akc264;
-        public string akc305;
-        public string personal_payment;
-        public string akc260;
-        public string akc253;
-        public string swap_amount;
-        public string bkc287;
-    }
+        public string hospital_days
+        {
+            get { return _hospital_days == null ? "" : _hospital_days.ToString(); }
+        }
 
-    public class SumList
-    {
+        public decimal? _hospital_days;
+
+        public string akc264
+        {
+            get { return _akc264 == null ? "" : _akc264.ToString(); }
+        }
+
+        public decimal? _akc264;
+
+        public string akc305
+        {
+            get { return _akc305 == null ? "" : _akc305.ToString(); }
+        }
+
+        public decimal? _akc305;
+
+        public string personal_payment
+        {
+            get { return _personal_payment == null ? "" : _personal_payment.ToString(); }
+        }
+
+        public decimal? _personal_payment;
+
+        public string akc260
+        {
+            get { return _akc260 == null ? "" : _akc260.ToString(); }
+        }
+
+        public decimal? _akc260;
+
+        public string akc253
+        {
+            get { return _akc253 == null ? "" : _akc253.ToString(); }
+        }
+
+        public decimal? _akc253;
+
+        public string bkc287
+        {
+            get { return _bkc287 == null ? "" : _bkc287.ToString(); }
+        }
+
+        public decimal? _bkc287;
+
+        public string AKC192
+        {
+            get { return _AKC192 == null ? "" : Convert.ToDateTime(_AKC192).ToString("yyyy年M月"); }
+        }
+
+        public DateTime? _AKC192;
+
+        public string AKC194
+        {
+            get { return _AKC194 == null ? "" : Convert.ToDateTime(_AKC194).ToString("yyyy年M月"); }
+        }
+
+        public DateTime? _AKC194;
+
+        public string akc280
+        {
+            get { return _akc280 == null ? "" : _akc280.ToString(); }
+        }
+
+        public decimal? _akc280;
+
+        public string record_count;
         public string akc190;
         public string AAC003;
         public string AAC041;
-        public string AKC192;
-        public string AKC194;
+        public string swap_amount;
         public string AKC195;
         public string AKC198;
-        public string akc336;
-        public string akc264;
-        public string akc305;
         public string disease_cost_limits;
-        public string personal_payment;
-        public string akc260;
-        public string akc253;
-        public string akc280;
-        public string swap_amount;
-        public string bkc287;
     }
 
     public class patient_info

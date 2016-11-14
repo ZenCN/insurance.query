@@ -6,7 +6,7 @@
                 var url = 'index/get_summary_list?page_index=' + $scope.page.index + '&page_size=' + $scope.page.size +
                     '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month) +
                     '&hospital_id=' + $scope.search.condition.hospital_id + '&state=' + $scope.search.condition.state
-                    + '&area_code=' + $scope.search.condition.area_code;
+                    + '&area_code=' + $scope.search.condition.area_code + '&source_type=' + $scope.search.condition.source_type;
 
 
                 $http.get(url).then(function (response) {
@@ -50,7 +50,8 @@
                     window.open('index/export_to_excel?hospital_id=' + $scope.search.condition.hospital_id +
                         '&hospital_name=' + $scope.search.condition.hospital_name +
                         '&area_code=' + $scope.search.condition.area_code + '&state=' + $scope.search.condition.state +
-                        '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month));
+                        '&start_time=' + $scope.date.year + '-' + month + '-1&end_time=' + tools.get_last_day(month) +
+                        '&source_type=' + $scope.search.condition.source_type);
                 } else {
                     msg('没有清单数据');
                 }
@@ -61,31 +62,30 @@
                     list: []
                 },
                 condition: {
-                    state: '3',
+                    state: '',
                     hospital_id: undefined,
                     hospital_name: undefined,
-                    area_code: undefined
+                    area_code: '',
+                    source_type: '1'  //数据来源 1：医院报销 ACK197=1 要明细及汇总 2：中心报销 ACK197=0 只要明细
                 },
                 from_server: function() {
                     if (typeof this.condition.hospital_id != "string" || this.condition.hospital_id.trim().length == 0) {
                         msg('请输入要查询的医院');
-                    } else if (typeof this.condition.area_code != "string" || this.condition.area_code.trim().length == 0) {
-                        msg('请输入统筹区编号');
                     } else {
                         $scope.page.inited = false;
                         $scope.page.index = 0;
                         $scope.page.load_data();
                     }
-
                 }
             };
 
-            $scope.get_hospital_names = function (val) {
-                return $http.get('index/search_hospital?name=' + val).then(function (response) {
-                    return response.data;
-                });
+            $scope.get_hospital_names = function(val) {
+                return $http.get('index/search_hospital?name=' + val + '&area_code=' + $scope.search.condition.area_code)
+                    .then(function(response) {
+                        return response.data;
+                    });
             };
-            $scope.hospital_selecting = function ($item, $model, $label, $event) {
+            $scope.hospital_selecting = function ($item) {
                 $scope.search.condition.hospital_id = $item.id;
             };
 

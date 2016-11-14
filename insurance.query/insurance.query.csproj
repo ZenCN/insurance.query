@@ -171,7 +171,9 @@
     <Content Include="js\libs\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="js\libs\bootstrap\css\bootstrap.css" />
     <Content Include="js\libs\bootstrap\css\bootstrap.min.css" />
-    <Content Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="js\libs\bootstrap\js\bootstrap.js" />
     <Content Include="js\libs\bootstrap\js\bootstrap.min.js" />
     <Content Include="js\libs\bootstrap\js\npm.js" />
@@ -179,7 +181,9 @@
     <Content Include="js\libs\extend\tool.js" />
     <Content Include="js\libs\font-awesome\css\font-awesome.css" />
     <Content Include="js\libs\font-awesome\css\font-awesome.min.css" />
-    <Content Include="js\libs\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="js\libs\font-awesome\fonts\fontawesome-webfont.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="js\libs\jquery\jquery-1.12.4-vsdoc.js" />
     <Content Include="js\libs\jquery\jquery-1.12.4.intellisense.js" />
     <Content Include="js\libs\jquery\jquery-1.12.4.js" />
@@ -207,16 +211,39 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="back_up\库表结构.doc" />
-    <None Include="excel\model.xls" />
-    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.eot" />
-    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.ttf" />
-    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.woff" />
-    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.woff2" />
-    <None Include="js\libs\font-awesome\fonts\FontAwesome.otf" />
+    <None Include="excel\model_all.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="excel\model_list.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\bootstrap\fonts\glyphicons-halflings-regular.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\font-awesome\fonts\fontawesome-webfont.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\libs\font-awesome\fonts\FontAwesome.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EntityDeploy Include="query_db.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>query_db.Designer.cs</LastGenOutput>

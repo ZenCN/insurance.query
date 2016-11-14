@@ -487,7 +487,7 @@ namespace insurance.query.Controllers
             return result;
         }
 
-        public string get_summary_list(int page_index, int page_size, string hospital_id, string area_code, string state, DateTime start_time, DateTime end_time)
+        public string get_summary_list(int page_index, int page_size, string hospital_id, string area_code, string state, int source_type, DateTime start_time, DateTime end_time)
         {
             string message = "";
             try
@@ -499,7 +499,9 @@ namespace insurance.query.Controllers
                 {
                     source_t04 =
                         db_context.TB0004.Where(
-                            t => t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id && t.aab324 == area_code);
+                            t =>
+                                t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
+                                t.AKC197 == source_type);
                 }
                 else
                 {
@@ -507,7 +509,12 @@ namespace insurance.query.Controllers
                         db_context.TB0004.Where(
                             t =>
                                 t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
-                                t.aae117 == state && t.aab324 == area_code);
+                                t.aae117 == state && t.AKC197 == source_type);
+                }
+
+                if (!string.IsNullOrEmpty(area_code))
+                {
+                    source_t04 = source_t04.Where(t => t.aab324 == area_code);
                 }
 
                 var list = from t04 in source_t04
@@ -541,29 +548,40 @@ namespace insurance.query.Controllers
                                bkc287 = t04.bkc287
                            };
 
-                var summary = new
-                {
-                    record_count = source_t04.Count(), 
-                    hospital_days = source_t04.Sum(t => t.akc336),
-                    akc253 = source_t04.Sum(t => t.akc253),
-                    akc264 = list.Sum(t => t.akc264),
-                    akc305 = list.Sum(t => t.akc305),
-                    personal_payment = list.Sum(t => t.personal_payment),
-                    akc260 = list.Sum(t => t.akc260),
-                    swap_amount = "",  //调剂金额
-                    bkc287 = list.Sum(t => t.bkc287)
-                };
-
                 int source_count = list.Count();
                 int page_count = ((source_count + page_size) - 1) / page_size;
                 list = list.OrderByDescending(t => t.AKC194).Skip((page_index * page_size)).Take(page_size);
 
-                message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count +
+                if (source_type == 1)
+                {
+                    var summary = new
+                    {
+                        record_count = source_t04.Count(),
+                        hospital_days = source_t04.Sum(t => t.akc336),
+                        akc253 = source_t04.Sum(t => t.akc253),
+                        akc264 = list.Sum(t => t.akc264),
+                        akc305 = list.Sum(t => t.akc305),
+                        personal_payment = list.Sum(t => t.personal_payment),
+                        akc260 = list.Sum(t => t.akc260),
+                        swap_amount = "",  //调剂金额
+                        bkc287 = list.Sum(t => t.bkc287)
+                    };
+
+                    message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count +
                           ",\"source\":{\"summary\":" +
                           JsonConvert.SerializeObject(summary) +
                           ",\"list\":" +
                           JsonConvert.SerializeObject(list.ToList(), new JsonConverter[] { new ChinaDateTimeConverter() }) +
                           "}}";
+                }
+                else if (source_type == 0)
+                {
+                    message = "{\"page_count\":" + page_count + ",\"record_count\":" + source_count +
+                              ",\"source\":{\"summary\":[],\"list\":" +
+                              JsonConvert.SerializeObject(list.ToList(),
+                                  new JsonConverter[] {new ChinaDateTimeConverter()}) +
+                              "}}";
+                }
             }
             catch (Exception ex)
             {
@@ -573,14 +591,20 @@ namespace insurance.query.Controllers
             return message;
         }
 
-        public string search_hospital(string name)
+        public string search_hospital(string name, string area_code)
         {
             string message = "";
             try
             {
                 db_context = new query_entities();
-                var list = (from t05 in db_context.TB0005
-                    where t05.akb021.Contains(name)
+
+                var query = db_context.TB0005.Where(t => t.akb021.Contains(name));
+                if (!string.IsNullOrEmpty(area_code))
+                {
+                    query = query.Where(t => t.AAB324 == area_code);
+                }
+
+                var list = (from t05 in query
                     select new
                     {
                         name = t05.akb021,
@@ -759,7 +783,7 @@ namespace insurance.query.Controllers
             return message;
         }
 
-        public void export_to_excel(string hospital_id, string area_code, string state, DateTime start_time, DateTime end_time, string hospital_name)
+        public void export_to_excel(string hospital_id, string area_code, string state, DateTime start_time, DateTime end_time, string hospital_name, int source_type)
         {
             db_context = new query_entities();
             IQueryable<TB0004> source_t04 = null;
@@ -768,7 +792,9 @@ namespace insurance.query.Controllers
             {
                 source_t04 =
                     db_context.TB0004.Where(
-                        t => t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id && t.aab324 == area_code);
+                        t =>
+                            t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
+                            t.AKC197 == source_type);
             }
             else
             {
@@ -776,7 +802,12 @@ namespace insurance.query.Controllers
                     db_context.TB0004.Where(
                         t =>
                             t.aae040 >= start_time && t.aae040 <= end_time && t.akb020 == hospital_id &&
-                            t.aae117 == state && t.aab324 == area_code);
+                            t.aae117 == state && t.AKC197 == source_type);
+            }
+
+            if (!string.IsNullOrEmpty(area_code))
+            {
+                source_t04 = source_t04.Where(t => t.aab324 == area_code);
             }
 
             var list = (from t04 in source_t04
@@ -810,29 +841,35 @@ namespace insurance.query.Controllers
                     _bkc287 = t04.bkc287
                 }).OrderByDescending(t => t._AKC194).ToList();
 
-            var sum = new excel_model
+            if (source_type == 1)
             {
-                record_count = source_t04.Count().ToString(),
-                _hospital_days = source_t04.Sum(t => t.akc336),
-                _akc253 = source_t04.Sum(t => t.akc253),
-                _akc264 = list.Sum(t => t._akc264),
-                _akc305 = list.Sum(t => t._akc305),
-                _personal_payment = list.Sum(t => t._personal_payment),
-                _akc260 = list.Sum(t => t._akc260),
-                swap_amount = "",  //调剂金额
-                _bkc287 = list.Sum(t => t._bkc287)
-            };
+                var sum = new excel_model
+                {
+                    record_count = source_t04.Count().ToString(),
+                    _hospital_days = source_t04.Sum(t => t.akc336),
+                    _akc253 = source_t04.Sum(t => t.akc253),
+                    _akc264 = list.Sum(t => t._akc264),
+                    _akc305 = list.Sum(t => t._akc305),
+                    _personal_payment = list.Sum(t => t._personal_payment),
+                    _akc260 = list.Sum(t => t._akc260),
+                    swap_amount = "",  //调剂金额
+                    _bkc287 = list.Sum(t => t._bkc287)
+                };
 
-            new ExcelOper().export(sum, list, start_time.ToString("yyyy年M月"), hospital_name);
+                new ExcelOper().export_all(sum, list, start_time.ToString("yyyy年M月"), hospital_name, source_type.ToString());
+            }else if (source_type == 0)
+            {
+                new ExcelOper().export_list(list, start_time.ToString("yyyy年M月"), hospital_name, source_type.ToString());
+            }
         }
     }
 
     public class ExcelOper
     {
-        public void export(excel_model sum, List<excel_model> list, string date, string hospital_name)
+        public void export_all(excel_model sum, List<excel_model> list, string date, string hospital_name, string source_type)
         {
             HSSFWorkbook hssfworkbook;
-            using (FileStream file = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "excel/model.xls", FileMode.Open, FileAccess.Read))
+            using (FileStream file = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "excel/model_all.xls", FileMode.Open, FileAccess.Read))
             {
                 hssfworkbook = new HSSFWorkbook(file);
             }
@@ -928,7 +965,99 @@ namespace insurance.query.Controllers
                 cell.CellStyle = cell_style;
             }
 
-            ResponseExcel(hssfworkbook, date, hospital_name);
+            ResponseExcel(hssfworkbook, date, hospital_name, source_type);
+        }
+
+        public void export_list(List<excel_model> list, string date, string hospital_name, string source_type)
+        {
+            HSSFWorkbook hssfworkbook;
+            using (FileStream file = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "excel/model_list.xls", FileMode.Open, FileAccess.Read))
+            {
+                hssfworkbook = new HSSFWorkbook(file);
+            }
+
+            int strat_row = 3;
+            ISheet sheet = hssfworkbook.GetSheet("清单");
+            sheet = CreateCell(sheet, list.Count(), 16, strat_row);
+
+            //日期及医院名称
+            sheet.GetRow(0).GetCell(0).SetCellValue("日期：" + date);
+            sheet.GetRow(0).GetCell(3).SetCellValue(hospital_name);
+            //清单表
+            ICell cell = null;
+            ICellStyle cell_style = SetCellStyle(sheet);
+            for (int i = 0; i < list.Count(); i++)
+            {
+                cell = sheet.GetRow(strat_row + i).GetCell(0);
+                cell.SetCellValue(list[i].akc190);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(1);
+                cell.SetCellValue(list[i].AAC003);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(2);
+                cell.SetCellValue(QueryPersonType(list[i].AAC041.Trim().Length > 0 ? int.Parse(list[i].AAC041) : 0));
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(3);
+                cell.SetCellValue(list[i].AKC192);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(4);
+                cell.SetCellValue(list[i].AKC194);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(5);
+                cell.SetCellValue(list[i].AKC195);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(6);
+                cell.SetCellValue(list[i].AKC198);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(7);
+                cell.SetCellValue(list[i].hospital_days);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(8);
+                cell.SetCellValue(list[i].akc264);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(9);
+                cell.SetCellValue(list[i].akc305);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(10);
+                cell.SetCellValue(list[i].disease_cost_limits);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(11);
+                cell.SetCellValue(list[i].personal_payment);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(12);
+                cell.SetCellValue(list[i].akc260);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(13);
+                cell.SetCellValue(list[i].akc253);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(14);
+                cell.SetCellValue(list[i].akc280);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(15);
+                cell.SetCellValue(list[i].swap_amount);
+                cell.CellStyle = cell_style;
+
+                cell = sheet.GetRow(strat_row + i).GetCell(16);
+                cell.SetCellValue(list[i].bkc287);
+                cell.CellStyle = cell_style;
+            }
+
+            ResponseExcel(hssfworkbook, date, hospital_name, source_type);
         }
 
         private string QueryPersonType(int val)
@@ -986,14 +1115,15 @@ namespace insurance.query.Controllers
             return style;
         }
 
-        private void ResponseExcel(HSSFWorkbook hssfworkbook, string date, string hospital_name)
+        private void ResponseExcel(HSSFWorkbook hssfworkbook, string date, string hospital_name, string source_type)
         {
+            source_type = source_type == "1" ? " 医院报销" : " 中心报销";
             // 设置响应头（文件名和文件格式）
             //设置响应的类型为Excel
             HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
             //设置下载的Excel文件名
             HttpContext.Current.Response.AddHeader("Content-Disposition",
-                string.Format("attachment; filename={0}", date + " " + hospital_name + ".xls"));
+                string.Format("attachment; filename={0}", date + " " + hospital_name + source_type + ".xls"));
             //Clear方法删除所有缓存中的HTML输出。但此方法只删除Response显示输入信息，不删除Response头信息。以免影响导出数据的完整性。
             HttpContext.Current.Response.Clear();
 

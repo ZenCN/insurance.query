@@ -51,5 +51,22 @@
                     $scope.page.load_data();
                 }
             }
+
+            $scope.query_person_type = function (val) {
+                switch (parseInt(val)) {
+                    case 1:
+                        return '一般人员';
+                    case 2:
+                        return '低保家庭';
+                    case 3:
+                        return '重度残疾';
+                    case 4:
+                        return '三无人员';
+                    case 5:
+                        return '困难人员';
+                    default:
+                        return "";
+                }
+            };
         }
     ]);
